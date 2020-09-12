@@ -1,7 +1,10 @@
 # Unplugged Gaming Website
 A group project making a website related to gaming news and reviews
 
-Road Map
+**Please refer to the Projects and Wiki tab for more details about the project**
+***
+
+# Road Map
 
 
 v0.1
