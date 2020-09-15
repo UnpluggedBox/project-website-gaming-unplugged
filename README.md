@@ -20,8 +20,12 @@ v0.1
     Created Home page
     Created Review page
 
-Planned for v0.2:
+v0.2:
 
-    Create Staff page
-    Create News page
+    Created Staff page
+    Created News page
     Login & Register pop up
+    
+Planned for v0.3
+-
+-
