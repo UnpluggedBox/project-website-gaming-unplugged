@@ -26,6 +26,9 @@ v0.2:
     Created News page
     Login & Register pop up
     
-Planned for v0.3
--
--
+Planned for v0.3:
+
+    -
+    -
+    -
+    
