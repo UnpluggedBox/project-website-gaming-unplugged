@@ -6,6 +6,7 @@ Developers:
 * Henry Tanujaya - 535180120
 * Jecky Afrianto - 535180127
 * Charly Julio Aristama - 535180137
+* Prinzky Lukito - 535180103
 
 **Please refer to the Projects and Wiki tab for more details about the project**
 ***
