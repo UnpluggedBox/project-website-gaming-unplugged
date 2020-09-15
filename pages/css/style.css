@@ -894,6 +894,59 @@ ol {
 	box-shadow: 0 0 9px 3px rgba(226, 30, 228, 0.5);
 }
 
+/* --------------------
+  News section
+-----------------------*/
+.intro-news-section {
+	height: 700px;
+	position: relative;
+}
+
+.news-text {
+	margin-bottom: 300px;
+	padding: 27px 0;
+	padding-left: 25px;
+	position: relative;
+}
+
+.news-text h2 {
+	font-size: 36px;
+	text-transform: uppercase;
+	font-style: italic;
+	font-weight: 700;
+	color: #fff;
+	margin-bottom: 1px;
+}
+
+.news-text h6 {
+	font-size: 14px;
+	text-transform: uppercase;
+	font-style: italic;
+	font-weight: 400;
+	color: #fff;
+	margin-bottom: 1px;
+}
+
+.news-text p {
+	font-size: 18px;
+	color: #cac7db;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.news-text:after {
+	position: absolute;
+	content: "";
+	width: 9px;
+	height: 100%;
+	left: -22px;
+	top: 0;
+	border-left: 3px solid #de46d6;
+	background: #fff;
+	-webkit-box-shadow: 0 0 9px 3px rgba(226, 30, 228, 0.5);
+	box-shadow: 0 0 9px 3px rgba(226, 30, 228, 0.5);
+}
+
 /* ----------------
   Featured section
 ---------------------*/
@@ -1454,6 +1507,28 @@ ol {
 
 .big-blog-item .blog-content p {
 	margin-bottom: 10px;
+}
+
+/* ------------------
+	Blog Page on News
+---------------------*/
+
+.news-item {
+	margin-top: 36px;
+}
+
+.news-item .news-thumb {
+	width: 300px;
+	float: left;
+	margin-right: px;
+}
+
+.news-item .text-box {
+	overflow: hidden;
+}
+
+.news-item .text-box p {
+	margin-bottom: 42px;
 }
 
 /* ----------------
