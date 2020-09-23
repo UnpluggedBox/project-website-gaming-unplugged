@@ -1,0 +1,6 @@
+Button: dari Modal Login dan Register
+Navbar: ada di semua page
+Jumbotron: ada di page review.html
+Card base: ada di page news.html
+Modal: Login dan Register di homepage.html
+Carousel: ada di homepage.html
