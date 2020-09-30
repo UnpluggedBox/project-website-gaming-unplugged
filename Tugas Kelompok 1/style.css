@@ -1,0 +1,72 @@
+.jumbotron{
+    background-color: rgba(48, 41, 41, 0.8) !important;
+    background-image: url(images/halo-bg.jpg);
+    background-size: cover;
+    background-blend-mode: color;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.jumbotron h1{
+    color:aqua !important;
+}
+
+section{
+    padding-top: 20px;
+    padding-bottom: 15px;
+    background: #746ea8;
+}
+
+
+body{
+    font-family: Alegreya, 'Times New Roman', Times, serif;
+}
+
+h1,h2,h3,h4,h5,h6{
+    
+font-family: Alegreya, "Lucida Console", Courier, monospace;
+}
+
+.x1{
+    background-color:rgba(163, 41, 201, 0.733);
+}
+
+.intro{
+    background: #746ea8;
+    padding-bottom: 1px;
+}
+
+.intro h1,h2,h3,h4,h5,h6{
+    color:aqua;
+}
+
+.intro p{
+    color: antiquewhite;
+}
+
+.intro .about{
+    font-size: large;
+    color:whitesmoke;
+}
+
+.showcase h2{
+
+}
+
+.carousel-inner img {
+    margin: auto;
+  }
+
+.footer-section {
+	text-align: center;
+    background: #330d38;
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+
+.card-title{
+    color:red;
+}
+
