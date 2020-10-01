@@ -25,6 +25,12 @@ v0.2:
     Created Staff page
     Created News page
     Login & Register pop up
+
+v0.2.1:
+
+    Added Jumbotron in review.html
+    Added Cards in news.html
+
     
 Planned for v0.3:
 
