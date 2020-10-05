@@ -5,11 +5,11 @@ uname.addEventListener('textInput', user_verify)
 psw.addEventListener('textInput', psw_verify)
 
 function valid() {
-    if (uname.value.length < 5 && uname.value.length > 5) {
+    if (uname.value.length < 5) {
         uname.focus();
         return false
     }
-    if (psw.value.length < 5 && psw.value.length > 5) {
+    if (psw.value.length < 5) {
         psw.focus();
         return false
     }
