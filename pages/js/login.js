@@ -1,27 +1,27 @@
-var user = document.forms['form']['uname']
-var pass = document.forms['form']['psw']
+var uname = document.forms['form']['uname']
+var psw = document.forms['form']['psw']
 
-user.addEventListener('textInput', user_verify)
-pass.addEventListener('textInput', pass_verify)
+uname.addEventListener('textInput', user_verify)
+psw.addEventListener('textInput', pass_verify)
 
 function valid() {
-    if (user !== "admin") {
-        user.focus();
+    if (uname != 'admin') {
+        uname.focus();
         return false
     }
-    if (pass !== "admin") {
-        pass.focus();
+    if (psw != 'admin') {
+        psw.focus();
         return false
     }
 }
 
 function user_verify() {
-    if (user = "admin") {
+    if (uname == 'admin') {
         return true;
     }
 }
 function pass_verify() {
-    if (pass = "admin") {
+    if (psw == 'admin') {
         return true;
     }
 }
