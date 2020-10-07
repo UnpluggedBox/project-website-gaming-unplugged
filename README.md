@@ -30,7 +30,10 @@ v0.2.1:
 
     Added Jumbotron in review.html
     Added Cards in news.html
+    
+v0.2.2:
 
+    Added a News List page
     
 Planned for v0.3:
 
