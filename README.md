@@ -33,8 +33,15 @@ v0.2.1:
     
 v0.3:
 
-    Added a News List page
-    Added a Reviews List Page
+    Created a News List page
+    Created a Reviews List Page
+
+v0.4:
+
+    Created a Registration Page
+    Created a Games page with a search function
+    Changed the whole site except the first homepage to look like as if a user is logged in
+    Minor typo bug fixes from older versions
     
 Planned for v0.4:
 
