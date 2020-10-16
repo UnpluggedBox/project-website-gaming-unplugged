@@ -1,27 +1,12 @@
-var pass = document.forms['form']['pass']
-var passrepeat = document.forms['form']['passrepeat']
-
-pass.addEventListener('textInput', pass_verify)
-passrepeat.addEventListener('textInput', passrep_verify)
-
-function valid() {
-    if (pass.value != passrepeat.value) {
-        pass.focus();
-        return false
+var check = function() {
+    if (document.getElementById('pass').value ==
+      document.getElementById('passrepeat').value) {
+      document.getElementById('message').style.color = 'green';
+      document.getElementById('message').innerHTML = 'matching';
+      document.getElementById('submit').disabled = false;
+    } else {
+      document.getElementById('message').style.color = 'red';
+      document.getElementById('message').innerHTML = 'not matching';
+      document.getElementById('submit').disabled = true;
     }
-    if (pass.value != passrepeat.value) {
-        passrepeat.focus();
-        return false
-    }
-}
-
-function pass_verify() {
-    if (pass.value == passrepeat.value) {
-        return true;
-    }
-}
-function passrep_verify() {
-    if (pass.value == passrepeat.value) {
-        return true;
-    }
-}
+  }
