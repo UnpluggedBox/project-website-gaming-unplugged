@@ -73,7 +73,7 @@
 	<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalCenterTitle" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
-				<form class="login_form" action="hpsesudahlogin.html" method="post" name="form" onsubmit="return valid()">
+				<form class="login_form" action="hpsesudahlogin.html" method="post" name="form">
 					<div class="modal-header">
 					<h5 class="modal-title" id="loginModalLongTitle">Login</h5>
 					<a href="homepage.html" class="site-logo" style="padding-left: 130px;">
@@ -87,11 +87,11 @@
 					    <div class="container">
 								<label for="uname"><b>Username / Email</b></label>
 								<br>
-								<input type="text" placeholder="Enter Username" name="uname" required>
+								<input type="text" placeholder="Enter Username" name="uname" id="uname" required>
 								<br>
 								<label for="psw"><b>Password</b></label>
 								<br>
-								<input type="password" placeholder="Enter Password" name="psw" required>
+								<input type="password" placeholder="Enter Password" name="psw" id="psw" onkeyup='checklogin();' required>
 								<br><br>
 								<label>
 								<input type="checkbox" checked="checked" name="remember"> Remember me
@@ -100,7 +100,7 @@
 					</div>
 					<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-					<button type="submit" class="btn btn-primary">Login</button>
+					<button type="submit" class="btn btn-primary" name="login" id="login" disabled>Login</button>
 				</div>
 			</form>
 			</div>
