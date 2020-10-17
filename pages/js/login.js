@@ -1,8 +1,9 @@
 var checklogin = function() {
-    if (document.getElementById('uname').value ==
-      document.getElementById('psw').value) {
-      document.getElementById('login').disabled = false;
+    if (document.getElementById('uname').value == 'admin' && document.getElementById('psw').value == 'admin') {
+      return true
     } else {
-      document.getElementById('login').disabled = true;
+      document.getElementById('messagelogin').style.color = 'red';
+      document.getElementById('messagelogin').innerHTML = 'Wrong Username or Password';
+      return false
     }
   }
