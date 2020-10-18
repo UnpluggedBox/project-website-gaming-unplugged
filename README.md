@@ -49,6 +49,11 @@ v0.5:
     * Added an Edit Profile feature in the User Profile page
     * Replaced Welcome with a link to the User Profile page
 
+v0.5:
+
+    * Created a User profile page
+    
+    
 Planned for v0.6 and beyond:
 
     -Back end stuff
