@@ -16,32 +16,32 @@ Developers:
 
 v0.1
 
-    Initial commit
-    Created Home page
-    Created Review page
+    * Initial commit
+    * Created Home page
+    * Created Review page
 
 v0.2:
 
-    Created Staff page
-    Created News page
-    Login & Register pop up
+    * Created Staff page
+    * Created News page
+    * Login & Register pop up
 
 v0.2.1:
 
-    Added Jumbotron in review.html
-    Added Cards in news.html
+    * Added Jumbotron in review.html
+    * Added Cards in news.html
     
 v0.3:
 
-    Created a News List page
-    Created a Reviews List Page
+    * Created a News List page
+    * Created a Reviews List Page
 
 v0.4:
 
-    Created a Registration Page
-    Created a Games page with a search function
-    Changed the whole site except the first homepage to look like as if a user is logged in
-    Minor typo bug fixes from older versions
+    * Created a Registration Page
+    * Created a Games page with a search function
+    * Changed the whole site except the first homepage to look like as if a user is logged in
+    * Minor typo bug fixes from older versions
     
 v0.5:
 
