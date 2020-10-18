@@ -35,35 +35,34 @@
 				</a>
 				<nav class="top-nav-area w-100">
 					<div class="user-panel">
-						<a href="" data-toggle="modal" data-target="#loginModal">Login</a> / <a href="" data-toggle="modal" data-target="#registerModal">Register</a>
+						<a href="" data-toggle="modal" data-target="#loginModal">Login</a> / <a href="Register.html">Register</a>
 					</div>
-
-	
 
 					<!-- Menu -->
 					<ul class="main-menu primary-menu">
 						<li><a href="homepage.html">Home</a></li>
-						<li><a href="review.html">Games</a>
+						<li><a href="games.html">Games</a>
 							<ul class="sub-menu">
-                                <li><a href="game-single.html">Singleplayer Games</a></li>
-                                <li><a href="game-single.html">Multiplayer Games</a></li>
+                                <li><a href="reviewlist.html">Singleplayer Games</a></li>
+                                <li><a href="reviewlist.html">Multiplayer Games</a></li>
 							</ul>
 						</li>
-                        <li><a href="review.html">Reviews</a>
+                        <li><a href="reviewlist.html">Reviews</a>
                             <ul class="sub-menu">
-                                <li><a href="game-single.html">Games in 2020</a></li>
-                                <li><a href="game-single.html">Games in 2019</a></li>
+                                <li><a href="reviewlist.html">Games in 2020</a></li>
+                                <li><a href="reviewlist.html">Games in 2019</a></li>
 							</ul>
                         </li>
-						<li><a href="news.html">News</a></li>
+						<li><a href="newslist1.html">News</a></li>
                         <li><a href="staff.html">Contact</a>
                             <ul class="sub-menu">
                                 <li><a href="staff.html">Our Staff</a></li>
-                                <li><a href="game-single.html">Web Developers</a></li>
-                                <li><a href="game-single.html">Unplugged Inc.</a></li>
+                                <li><a href="staff.html">Web Developers</a></li>
+                                <li><a href="staff.html">Unplugged Inc.</a></li>
 							</ul>
                         </li>
 					</ul>
+
 				</nav>
 			</div>
 		</div>
@@ -74,7 +73,7 @@
 	<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalCenterTitle" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
-				<form class="login_form" action="hpsesudahlogin.html" method="post" name="form" onsubmit="return valid()">
+				<form class="login_form" action="hpsesudahlogin.html" method="post" name="form" id="form" onsubmit="return checklogin()">
 					<div class="modal-header">
 					<h5 class="modal-title" id="loginModalLongTitle">Login</h5>
 					<a href="homepage.html" class="site-logo" style="padding-left: 130px;">
@@ -88,12 +87,14 @@
 					    <div class="container">
 								<label for="uname"><b>Username / Email</b></label>
 								<br>
-								<input type="text" placeholder="Enter Username" name="uname" required>
+								<input type="text" placeholder="Enter Username" name="uname" id="uname" required>
 								<br>
 								<label for="psw"><b>Password</b></label>
 								<br>
-								<input type="password" placeholder="Enter Password" name="psw" required>
-								<br><br>
+								<input type="password" placeholder="Enter Password" name="psw" id="psw" required>
+								<br>
+								<span id="messagelogin"></span>
+								<br>
 								<label>
 								<input type="checkbox" checked="checked" name="remember"> Remember me
 								</label>
@@ -101,7 +102,7 @@
 					</div>
 					<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-					<button type="submit" class="btn btn-primary">Login</button>
+					<button type="submit" class="btn btn-primary" name="login" id="login">Login</button>
 				</div>
 			</form>
 			</div>
@@ -182,8 +183,8 @@
 						<h2>Latest News and Reviews by Our Staff</h2>
 					</div>
 					<ul class="blog-filter">
-						<li><a href="#">News</a></li>
-						<li><a href="#">Reviews</a></li>
+						<li><a href="newslist1.html">News</a></li>
+						<li><a href="reviewlist.html">Reviews</a></li>
 						<li><a href="#">JRPG</a></li>
 						<li><a href="#">MMORPG</a></li>
                     </ul>
@@ -196,7 +197,7 @@
 						<div class="blog-text text-box text-white">
 							<div class="top-meta">9 - 9 - 2020 in <a href="">News</a></div>
 							<h3>Microsoft Unveils the XBOX Series S at $299</h3>
-							<p style="color:#332e2e"><b>Xbox Series S delivers the same next generation speed and performance that define Xbox Series X.
+							<p style="color:#ffffff"><b>Xbox Series S delivers the same next generation speed and performance that define Xbox Series X.
                                 It is similar in CPU and has the identical I/O performance as Xbox Series X, 
                                 making it easier for developers to deliver the same great performance, while rendering at a lower resolution.</b>
                             </p>
@@ -213,7 +214,7 @@
 						<div class="blog-text text-box text-white">
 							<div class="top-meta">20 - 8 - 2020 in <a href="">News</a></div>
 							<h3>Sony Reveals Latest PS5 Details</h3>
-							<p style="color:#332e2e"><b>The PlayStation 5 is an upcoming home video game console developed by Sony Interactive Entertainment. 
+							<p style="color:#ffffff"><b>The PlayStation 5 is an upcoming home video game console developed by Sony Interactive Entertainment. 
                                 Announced in 2019 as the successor to the PlayStation 4, it is scheduled to launch in late 2020.</b></p>
 							<a href="#" class="read-more">Read More  <img src="images/icons/double-arrow.png" alt="#"/></a>
 						</div>
@@ -228,7 +229,7 @@
 						<div class="blog-text text-box text-white">
 							<div class="top-meta">19 - 8 - 2020 in  <a href="">Reviews</a></div>
 							<h3><b>Xenoblade Chronicles: Future Connected - How Does It Compare to It's Predecessor?</h3>
-							<p style="color:#332e2e">Xenoblade Chronicles: Future Connected (Japanese: つながる未来, Tsunagaru mirai) is an extra epilogue story extension of Xenoblade Chronicles: Definitive Edition. 
+							<p style="color:#ffffff">Xenoblade Chronicles: Future Connected (Japanese: つながる未来, Tsunagaru mirai) is an extra epilogue story extension of Xenoblade Chronicles: Definitive Edition. 
                                 It revolves around Melia, accompanied by Shulk and two unfamiliar Nopon, Kino and Nene, who are all playable in the new area Bionis' Shoulder. </b></p>
 							<a href="review.html" class="read-more">Read More  <img src="images/icons/double-arrow.png" alt="#"/></a>
 						</div>
@@ -332,19 +333,11 @@
 			</a>
 			<ul class="main-menu footer-menu">
 				<li><a href="homepage.html">Home</a></li>
-				<li><a href="">Games</a></li>
-				<li><a href="review.html">Reviews</a></li>
-				<li><a href="">News</a></li>
+				<li><a href="games.html">Games</a></li>
+				<li><a href="reviewlist.html">Reviews</a></li>
+				<li><a href="newslist1.html">News</a></li>
 				<li><a href="staff.html">Contact</a></li>
 			</ul>
-			<div class="footer-social d-flex justify-content-center">
-				<a href="#"><i class="fa fa-pinterest"></i></a>
-				<a href="#"><i class="fa fa-facebook"></i></a>
-				<a href="#"><i class="fa fa-twitter"></i></a>
-				<a href="#"><i class="fa fa-dribbble"></i></a>
-				<a href="#"><i class="fa fa-behance"></i></a>
-			</div>
-			<div class="copyright"><a href="">Colorlib</a> 2018 @ All rights reserved</div>
 		</div>
 	</footer>
 	<!-- Footer section end -->
@@ -359,6 +352,7 @@
 	<script src="js/jquery.magnific-popup.min.js"></script>
 	<script src="js/main.js"></script>
 	<script src="js/login.js"></script>
+	<script src="js/Register.js"></script>
 
 </body>
 </html>
