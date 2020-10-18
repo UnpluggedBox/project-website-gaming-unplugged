@@ -62,6 +62,9 @@
             background-color: darkslateblue;
             text-align: center;
         }
+        .back {
+            text-align: left;
+        }
         </style>
     </head>
 
@@ -71,11 +74,15 @@
             <h1>Register</h1>
             <hr>
 
-            <label for="profilename" style="color: blanchedalmond;"><b>Profile Name / Username</b></label>
-            <input type="text" placeholder="Enter Profile Name" name="profilename" id="profilename" required>
+            <label for="username" style="color: blanchedalmond;"><b>Username</b></label>
+            <input type="text" placeholder="Enter Username (must 6 characters or more)" name="username" id="username" onkeyup='checkusername();' required>
+            <span id="messageuser"></span>
+            <br>
 
             <label for="email " style="color: blanchedalmond;"><b>Email</b></label>
-            <input type="text" placeholder="Enter Email" name="email" id="email" required>
+            <input type="text" placeholder="Enter Email (abcde@gmail.com)" name="email" id="email" onkeyup='checkemail()' required>
+            <span id="messageemail"></span>
+            <br>
 
             <label for="pass" style="color: blanchedalmond;"><b>Password</b></label>
             <input type="password" placeholder="Enter Password" name="pass" id="pass" required>
@@ -92,6 +99,10 @@
         
         <div class="container signin">
             <p style="color: blanchedalmond;">Already have an account? <a href="hpsesudahlogin.html">Sign in</a>.</p>
+        </div>
+
+        <div class="back">
+            <a href="homepage.html">Back</a>
         </div>
     </form>
 
