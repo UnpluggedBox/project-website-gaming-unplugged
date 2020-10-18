@@ -51,7 +51,7 @@ v0.5:
 
 v0.5.1:
 
-    * Created a User profile page
+    * Minor changes to News List
     
     
 Planned for v0.6 and beyond:
