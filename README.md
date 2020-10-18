@@ -43,11 +43,11 @@ v0.4:
     Changed the whole site except the first homepage to look like as if a user is logged in
     Minor typo bug fixes from older versions
     
-Planned for v0.5:
+v0.5:
 
-    -User profile page
-    -
-    -
+    * Created a User profile page
+    * Added an Edit Profile feature in the User Profile page
+    * Replaced Welcome with a link to the User Profile page
 
 Planned for v0.6 and beyond:
 
