@@ -18,7 +18,26 @@
 
         .container {
             padding: 16px;
-            background-color: indigo}
+            background-color: indigo
+        }
+
+        .containerback {
+            text-align: left;
+            background-color: darkslateblue;
+            float: left;
+        }
+        
+        .main {
+            background-color: darkslateblue;
+            margin: auto;
+        }
+
+        .signin {
+            background-color: darkslateblue;
+            float:inherit;
+            text-align: center;
+            
+        }
 
         input[type=text], input[type=password] {
             width: 100%;
@@ -58,31 +77,28 @@
             color: dodgerblue;
         }
 
-        .signin {
-            background-color: darkslateblue;
-            text-align: center;
-        }
         .back {
             text-align: left;
         }
+
         </style>
     </head>
 
 <body>
-    <form action="hpsesudahlogin.html">
+    <form action="homepage.html">
         <div class="container">
             <h1>Register</h1>
             <hr>
 
             <label for="username" style="color: blanchedalmond;"><b>Username</b></label>
-            <input type="text" placeholder="Enter Username (must 6 characters or more)" name="username" id="username" onkeyup='checkusername();' required>
+            <input type="text" placeholder="Enter Username (must be 6 characters or more)" name="username" id="username" onkeyup='checkusername();' required>
             <span id="messageuser"></span>
-            <br>
+            <br><br>
 
             <label for="email " style="color: blanchedalmond;"><b>Email</b></label>
             <input type="text" placeholder="Enter Email (abcde@gmail.com)" name="email" id="email" onkeyup='checkemail()' required>
             <span id="messageemail"></span>
-            <br>
+            <br><br>
 
             <label for="pass" style="color: blanchedalmond;"><b>Password</b></label>
             <input type="password" placeholder="Enter Password" name="pass" id="pass" required>
@@ -93,17 +109,14 @@
             <span id="message"></span>
             <hr>
             <p style="color: blanchedalmond;">By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
-
             <button type="submit" class="registerbtn" name="submit" id="submit" disabled>Register</button>
         </div>
         
-        <div class="container signin">
-            <p style="color: blanchedalmond;">Already have an account? <a href="hpsesudahlogin.html">Sign in</a>.</p>
+        <div class="container main">
+            <div class="containerback"><a href="homepage.html">Back</a></div>
+            <div class="signin" style="color: blanchedalmond">Already have an account? <a href="hpsesudahlogin.html">Sign in</a>.</p></div>
         </div>
 
-        <div class="back">
-            <a href="homepage.html">Back</a>
-        </div>
     </form>
 
     <script src="js/register.js"></script>
