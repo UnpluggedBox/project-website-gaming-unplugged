@@ -1080,6 +1080,12 @@ ol {
 	bottom: 19px;
 }
 
+.footer-logo {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
 .footer-menu {
 	padding-top: 62px;
 }
@@ -1438,6 +1444,14 @@ ol {
 
 .review-item {
 	margin-bottom: 87px;
+}
+
+.review-pic1 {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;;
+
 }
 
 .review-content {
