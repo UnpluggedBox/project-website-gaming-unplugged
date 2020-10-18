@@ -49,7 +49,7 @@ v0.5:
     * Added an Edit Profile feature in the User Profile page
     * Replaced Welcome with a link to the User Profile page
 
-v0.5:
+v0.5.1:
 
     * Created a User profile page
     
