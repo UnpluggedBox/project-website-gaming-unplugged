@@ -55,7 +55,7 @@ v0.5.1:
     
 v0.5.2:
 
-    * Replaced top right Log Out with Back
+    * Replaced top right Log Out in User/Profile page with Back
     * Replaced some texts' colors
     * Removed some unnecessary code
     
