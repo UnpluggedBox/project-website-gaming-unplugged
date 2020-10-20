@@ -1,9 +1,4 @@
-/* =================================
-------------------------------------
-	EndGam - Gaming Magazine Template
-	Version: 1.0
- ------------------------------------
- ====================================*/
+
 
 
 'use strict';
@@ -11,7 +6,7 @@
 
 $(window).on('load', function() {
 	/*------------------
-		Preloder
+		Preloader
 	--------------------*/
 	$(".loader").fadeOut();
 	$("#preloder").delay(400).fadeOut("slow");
@@ -51,8 +46,8 @@ $(window).on('load', function() {
 		animateOut: 'fadeOut',
 		animateIn: 'fadeIn',
 		items: 1,
-		//autoplay: true,
-		autoplayTimeout: 10000,
+		autoplay: true,
+		autoplayTimeout: 5000,
 	});
 
 	var dot = $('.hero-slider .owl-dot');
