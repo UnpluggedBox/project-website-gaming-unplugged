@@ -53,6 +53,12 @@ v0.5.1:
 
     * Minor changes to News List
     
+v0.5.2:
+
+    * Replaced top right Log Out with Back
+    * Replaced some texts' colors
+    * Removed some unnecessary code
+    
     
 Planned for v0.6 and beyond:
 
