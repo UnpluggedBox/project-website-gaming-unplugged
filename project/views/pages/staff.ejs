@@ -2,48 +2,6 @@
     <%- include('../partials/head'); %>
 	<%- include('../partials/header'); %>
 <body>
-
-	<!-- Header section -->
-	<header class="header-section">
-		<div class="header-warp">
-			<div class="header-bar-warp d-flex">
-				<!-- Logo made in freelogodesign.org -->
-				<a href="hpsesudahlogin.html" class="site-logo">
-					<img src="images/unplugged-logo.png" alt="">
-				</a>
-				<nav class="top-nav-area w-100">
-					<div class="user-panel">
-						<a href="user.html">Profile</a>
-					</div>
-					<!-- Menu -->
-					<ul class="main-menu primary-menu">
-						<li><a href="http://localhost:3000/">Home</a></li>
-						<li><a href="games.html">Games</a>
-							<ul class="sub-menu">
-                                <li><a href="reviewlist.html">Singleplayer Games</a></li>
-                                <li><a href="reviewlist.html">Multiplayer Games</a></li>
-							</ul>
-						</li>
-                        <li><a href="reviewlist.html">Reviews</a>
-                            <ul class="sub-menu">
-                                <li><a href="reviewlist.html">Games in 2020</a></li>
-                                <li><a href="reviewlist.html">Games in 2019</a></li>
-							</ul>
-                        </li>
-						<li><a href="newslist1.html">News</a></li>
-                        <li><a href="staff.html">Contact</a>
-                            <ul class="sub-menu">
-                                <li><a href="staff.html">Our Staff</a></li>
-                                <li><a href="staff.html">Web Developers</a></li>
-                                <li><a href="staff.html">Unplugged Inc.</a></li>
-							</ul>
-                        </li>
-					</ul>
-				</nav>
-			</div>
-		</div>
-	</header>
-    <!-- Header section end -->
     
     <!--Staff and writers section-->
     <section class="blog-section spad" style="padding-left: 260px;">
@@ -147,23 +105,7 @@
         </section> 
         <!--Writer section end-->
 
-    <!-- Footer section -->
-	<footer class="footer-section">
-		<div class="container">
-			<a href="#" class="footer-logo">
-				<img src="images/unplugged-logo.png" alt="">
-			</a>
-			<ul class="main-menu footer-menu">
-				<li><a href="hpsesudahlogin.html">Home</a></li>
-				<li><a href="games.html">Games</a></li>
-				<li><a href="reviewlist.html">Reviews</a></li>
-				<li><a href="newslist1.html">News</a></li>
-				<li><a href="staff.html">Contact</a></li>
-			</ul>
-		</div>
-	</footer>
-	<!-- Footer section end -->
-
+        <%- include('../partials/footer'); %>
 
     <!--====== Javascripts & Jquery ======-->
 	<script src="js/jquery-3.2.1.min.js"></script>

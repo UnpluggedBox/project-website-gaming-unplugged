@@ -37,13 +37,12 @@ router.post('/register', async (req, res) => {
 //     })(req, res, next);
 //   });
 
-router.post('/login', (req, res, next) => {
-    passport.authenticate('local', {
-      successRedirect: '/staff',
-      failureRedirect: '/reviewlist',
-      failureFlash: 'Invalid username or password.'
-    })(req, res, next);
-  });
-  
+// router.post('/login', (req, res, next) => {
+//     passport.authenticate('local', {
+//       successRedirect: '/staff',
+//       failureRedirect: '/reviewlist',
+//       failureFlash: 'Invalid username or password.'
+//     })(req, res, next);
+//   });
 
 module.exports = router;
