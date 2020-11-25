@@ -1,37 +1,26 @@
+const { ObjectID, ObjectId } = require('mongodb');
 var mongoose = require('mongoose');
 
-var UserSchema = new mongoose.Schema({
-  username: {
+var ArticleSchema = new mongoose.Schema({
+  title: {
       type: String, 
       required: [true, "can't be blank"],
-      match: [/^[a-zA-Z0-9]+$/, 'is invalid'],
       index: true,
       unique: true
     },
-  email: {
-      type: String,
-      lowercase: true,
-      required: [true, "can't be blank"],
-      match: [/^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'is invalid'],
-      index: true,
-      unique: true
+  writer: {
+      type: mongoose.Schema.ObjectId,
+      ref: 'User',
+      required: [true, "can't be blank"]
     },
-  password: String,
-  bio: String,
+  content: String,  
+  visitCount: Number,
   image: {
       data: Buffer,
       contentType: String
   },
-  firstName: String,
-  lastName: String,
-  genre: String,
-  history: Number,
-  role: {
-      type: String,
-      required: true,
-      default: 'User'
-  }
+  comments: [{type: Schema.Types.ObjectId, ref: "Comment"}] 
 
 }, {timestamps: true});
 
-module.exports = mongoose.model('User', UserSchema);
+module.exports = mongoose.model('Article', ArticleSchema);

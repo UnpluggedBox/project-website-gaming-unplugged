@@ -1,6 +1,7 @@
 var ObjectID = require('mongodb').ObjectID
 var passport = require('passport');
 const { request, response } = require("express");
+const bcrypt = require('bcrypt');
 const express = require('express');
 const flash = require('express-flash')
 const session = require('express-session');
@@ -27,7 +28,7 @@ var storage = multer.diskStorage({
 var upload = multer({ storage: storage })
 app.use(express.static(path.join(__dirname, 'public')));
 app.use( bodyParser.urlencoded({ extended: false }) );
-app.use(flash())
+app.use(flash());
 app.use(require('express-session')({
   secret: 'keyboard cat',
   resave: true,
@@ -130,6 +131,29 @@ app.get('/register', (request, response) => {
   response.render('pages/register', { isLoggedIn: false, pageTitle: 'Unplugged Games' });
 });
 
+app.post('/register', async (req, res) => {
+  // Check if this user already exists
+  let user = await userid.findOne({ email: req.body.email });
+  let uname = await userid.findOne({ username: req.body.username });
+  if (user) {
+    req.flash('error', 'Email already exists!');
+    res.redirect('/register');
+    } else if (uname) {
+      req.flash('error', 'Username already taken!');
+      res.redirect('/register');
+    } else {
+          // Insert the new user if they do not exist yet
+          user = new userid({
+            username: req.body.username,
+            email: req.body.email,
+            password: req.body.password
+        });
+        const salt = await bcrypt.genSalt(10);
+        user.password = await bcrypt.hash(user.password, salt);
+        await user.save();
+        res.redirect('/');
+  }
+});
 
 app.use('/', routes);
 app.use('/profile', users);

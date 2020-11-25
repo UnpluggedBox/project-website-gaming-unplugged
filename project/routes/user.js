@@ -19,25 +19,26 @@ router.get('/asd', function (req, res) {
     res.send('About the');
   })
 
-router.post('/register', async (req, res) => {
-    // Check if this user already exists
-    let user = await User.findOne({ email: req.body.email });
-    let errors = [];
-    if (user) {
-      errors.push({ msg: 'Email or username already exists!' });
-    } else {
-        // Insert the new user if they do not exist yet
-        user = new User({
-            username: req.body.username,
-            email: req.body.email,
-            password: req.body.password
-        });
-        const salt = await bcrypt.genSalt(10);
-        user.password = await bcrypt.hash(user.password, salt);
-        await user.save();
-        res.send(user);
-    }
-});
+// router.post('/register', async (req, res) => {
+//     // Check if this user already exists
+//     let user = await User.findOne({ email: req.body.email });
+//     let uname = await User.findOne({ username: req.body.username });
+//     if (user) {
+//       req.flash("error","Email is already registered");
+//       res.locals.messages = req.flash();
+//     } else {
+//         // Insert the new user if they do not exist yet
+//         user = new User({
+//             username: req.body.username,
+//             email: req.body.email,
+//             password: req.body.password
+//         });
+//         const salt = await bcrypt.genSalt(10);
+//         user.password = await bcrypt.hash(user.password, salt);
+//         await user.save();
+//         res.send(user);
+//     }
+// });
 
 router.post('/:username/update', async (req, res) => {
     const docs = await User.findOne({username:req.params.username})
@@ -57,12 +58,18 @@ router.post('/:username/update', async (req, res) => {
 router.post("/:username/upload", upload.single("image"), async (req, res) => {
     const docs = await User.findOne({username:req.params.username})
         docs.username = req.params.username; 
+        if (req.body.filename == undefined) {
+          req.flash('error', 'No picture selected!');
+          res.redirect(`/profile/${req.params.username}`);
+        }
+        
     var obj = { 
       img: { 
           data: fs.readFileSync(path.join(__dirname + '/../uploads/' + req.file.filename)), 
           contentType: 'image/png'
       } 
-   } 
+      } 
+
     docs.image = obj.img;
     try{
       docs.save();

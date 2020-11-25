@@ -13,7 +13,7 @@
             
                         <ul class="nav" style="display: block;">
                             <li>
-                                <a href="/profile">
+                                <a href="/profile/<%= username %>">
                                     <i class="pe-7s-user"></i>
                                     <p>User Profile</p>
                                 </a>
@@ -62,9 +62,15 @@
                                     <div class="content">
                                         <div class="author">
                                              <a href="#">
-                                            <img class="avatar border-gray" src="data:image/<%=image.contentType%>;base64,<%=image.data.toString('base64')%>">
+                                                <% if (image.data == undefined) { %>
+                                                    <img class="avatar border-gray" src="">
+                                                <% } else if(image.data !== undefined){ %>
+                                                    <img class="avatar border-gray" src="data:image/<%= image.contentType %>;base64,<%= image.data.toString('base64') %>">
+                                                <% } %>
+                                                
                                               <h4 class="title" id="bioname"><br>
-                                                 <h4 class="title" id="biousername"><small></small></h4>
+                                                 <h4 class="title" id="biousername"><small></small>
+                                                </h4>
                                               </h4>
                                             </a>
                                         </div>
@@ -83,8 +89,14 @@
                                     <div class="content">
                                         <form action="/profile/<%= username %>/upload" method="post" enctype="multipart/form-data">
                                             <input type="file" id="image" name="image">
+                                            <span id="message" style="color: red;">            
+                                                <% if (messages.error){ %>
+                                                <%= messages.error %> 
+                                                <% } %> 
+                                                </span>
                                             <button type="submit" class="btn btn-info btn-fill pull-right">Update Avatar</button>
                                           </form>
+                                          <br>
                                         <form action="/profile/<%= username %>/update" method="post">
                                             <div class="row">
                                                 <div class="col-md-3">

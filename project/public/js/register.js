@@ -21,7 +21,7 @@ var checkusername = function() {
     document.getElementById('messageuser').innerHTML = 'Username correct';
     document.getElementById('submit').disabled = false; }, 2000);
   }
-  else if (document.getElementById('username').value.length > 0 && document.getElementById('username').value.length < 6) {
+  else if (document.getElementById('username').value.length < 6) {
     setTimeout(function(){
     document.getElementById('messageuser').style.color = 'red';
     document.getElementById('messageuser').innerHTML = 'Username is not correct!';
