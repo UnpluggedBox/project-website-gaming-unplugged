@@ -1,49 +1,45 @@
+<header class="header-section">
+	<div class="header-warp">
+		<div class="header-bar-warp d-flex">
+			<a href="/" class="site-logo">
+				<img src="images/unplugged-logo.png" alt="">
+			</a>
+			<nav class="top-nav-area w-100">
+				<div class="user-panel">
+					<a href="/login">Login</a> / <a href="/register">Register</a>
+				</div>
 
-    <!-- Header section -->
-	<header class="header-section">
-		<div class="header-warp">
-			<div class="header-bar-warp d-flex">
-				<!-- Logo made in freelogodesign.org -->
-				<a href="/" class="site-logo">
-					<img src="images/unplugged-logo.png" alt="">
-				</a>
-				<nav class="top-nav-area w-100">
-					<div class="user-panel">
-						<a href="/login">Login</a> / <a href="/register">Register</a>
-					</div>
+				<ul class="main-menu primary-menu">
+					<li><a href="/">Home</a></li>
+					<li><a href="games.html">Games</a>
+						<ul class="sub-menu">
+							<li><a href="reviewlist.html">Singleplayer Games</a></li>
+							<li><a href="reviewlist.html">Multiplayer Games</a></li>
+						</ul>
+					</li>
+					<li><a href="/reviewlist">Reviews</a>
+						<ul class="sub-menu">
+							<li><a href="reviewlist.html">Games in 2020</a></li>
+							<li><a href="reviewlist.html">Games in 2019</a></li>
+						</ul>
+					</li>
+					<li><a href="/newslist">News</a></li>
+					<li><a href="/staff">Contact</a>
+						<ul class="sub-menu">
+							<li><a href="staff.html">Our Staff</a></li>
+							<li><a href="staff.html">Web Developers</a></li>
+							<li><a href="staff.html">Unplugged Inc.</a></li>
+						</ul>
+					</li>
+				</ul>
 
-					<!-- Menu -->
-					<ul class="main-menu primary-menu">
-						<li><a href="/">Home</a></li>
-						<li><a href="games.html">Games</a>
-							<ul class="sub-menu">
-                                <li><a href="reviewlist.html">Singleplayer Games</a></li>
-                                <li><a href="reviewlist.html">Multiplayer Games</a></li>
-							</ul>
-						</li>
-                        <li><a href="/reviewlist">Reviews</a>
-                            <ul class="sub-menu">
-                                <li><a href="reviewlist.html">Games in 2020</a></li>
-                                <li><a href="reviewlist.html">Games in 2019</a></li>
-							</ul>
-                        </li>
-						<li><a href="/newslist">News</a></li>
-                        <li><a href="/staff">Contact</a>
-                            <ul class="sub-menu">
-                                <li><a href="staff.html">Our Staff</a></li>
-                                <li><a href="staff.html">Web Developers</a></li>
-                                <li><a href="staff.html">Unplugged Inc.</a></li>
-							</ul>
-                        </li>
-					</ul>
-
-				</nav>
-			</div>
+			</nav>
 		</div>
-	</header>
-    <!-- Header section end -->
-    
-    <% if (isLoggedIn) { %>
+	</div>
+</header>
+
+	<% if (isLoggedIn) { %>
+
     <!-- Header section -->
 	<header class="header-section">
 		<div class="header-warp">
@@ -54,7 +50,7 @@
 				</a>
 				<nav class="top-nav-area w-100">
 					<div class="user-panel">
-						<a href="">Welcome, <%=username%></a> / <a href="/">Logout</a>
+						<a href="/profile/<%= username %>">Welcome, <%= username%></a> / <a href="/logout">Logout</a>
 					</div>
 
 					<!-- Menu -->

@@ -1,17 +1,30 @@
 const bcrypt = require('bcrypt');
 const express = require('express');
+const multer = require("multer");
+var fs = require('fs'); 
+var path = require('path'); 
 const User = require('../models/user');
 const router = express.Router();
+var storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        cb(null, 'uploads');
+     },
+    filename: function (req, file, cb) {
+        cb(null , file.fieldname + "-" + Date.now() + ".png");
+    }
+  });
+var upload = multer({ storage: storage })
 
 router.get('/asd', function (req, res) {
     res.send('About the');
   })
 
 router.post('/register', async (req, res) => {
-    // Check if this user already exisits
+    // Check if this user already exists
     let user = await User.findOne({ email: req.body.email });
+    let errors = [];
     if (user) {
-        return res.status(400).send('That user already exisits!');
+      errors.push({ msg: 'Email or username already exists!' });
     } else {
         // Insert the new user if they do not exist yet
         user = new User({
@@ -26,23 +39,39 @@ router.post('/register', async (req, res) => {
     }
 });
 
-// router.post('/login', function(req, res, next) {
-//     passport.authenticate('local', function(err, user, info) {
-//       if (err) { return next(err); }
-//       if (!user) { 
-//           res.status(401);
-//           res.end(info.message);
-//           return;
-//       }
-//     })(req, res, next);
-//   });
+router.post('/:username/update', async (req, res) => {
+    const docs = await User.findOne({username:req.params.username})
+          docs.username = req.body.username; 
+          docs.firstName = req.body.firstname;
+          docs.lastName = req.body.lastname;
+          docs.bio = req.body.biography;
+   try{
+    docs.save();
+    res.redirect(`/profile/${req.body.username}`);
+   }catch(e){
+   console.log(e)
+    res.redirect('/');
+   }
+});
 
-// router.post('/login', (req, res, next) => {
-//     passport.authenticate('local', {
-//       successRedirect: '/staff',
-//       failureRedirect: '/reviewlist',
-//       failureFlash: 'Invalid username or password.'
-//     })(req, res, next);
-//   });
+router.post("/:username/upload", upload.single("image"), async (req, res) => {
+    const docs = await User.findOne({username:req.params.username})
+        docs.username = req.params.username; 
+    var obj = { 
+      img: { 
+          data: fs.readFileSync(path.join(__dirname + '/../uploads/' + req.file.filename)), 
+          contentType: 'image/png'
+      } 
+   } 
+    docs.image = obj.img;
+    try{
+      docs.save();
+      res.redirect(`/profile/${req.params.username}`);
+     }catch(e){
+    console.log(e)
+    res.redirect('/');
+  }
+  });
+
 
 module.exports = router;

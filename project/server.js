@@ -1,18 +1,30 @@
 var ObjectID = require('mongodb').ObjectID
 var passport = require('passport');
-var crypto = require('crypto');
 const { request, response } = require("express");
 const express = require('express');
 const flash = require('express-flash')
 const session = require('express-session');
 const mongoose = require('mongoose');
+const multer = require("multer");
+var fs = require('fs'); 
+var path = require('path');
 const bodyParser =  require('body-parser');
 require('dotenv').config();
 
-const path = require('path');
 const routes = require('./routes/index');
 const users = require('./routes/user');
+const userid = require('./models/user');
+//const user = require('./models/user');
 const app = express();
+var storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+      cb(null, 'uploads');
+   },
+  filename: function (req, file, cb) {
+      cb(null , file.fieldname + "-" + Date.now());
+  }
+});
+var upload = multer({ storage: storage })
 app.use(express.static(path.join(__dirname, 'public')));
 app.use( bodyParser.urlencoded({ extended: false }) );
 app.use(flash())
@@ -30,9 +42,13 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-app.get('/', (request, response) => {
+app.get('/', async (request, response) => {
   if(request.isAuthenticated()){
-    response.render('pages/homepage', { username: request.user.username, isLoggedIn: true, title: 'Unplugged Games' });
+    const user = await userid.findOne({_id: request.user.id})
+    console.log(user)
+    response.render('pages/homepage', { 
+      username: user.username,
+      isLoggedIn: true, title: 'Unplugged Games' });
 
   } else {
     response.render('pages/homepage', { isLoggedIn: false, title: 'Unplugged Games' });
@@ -71,43 +87,43 @@ app.get('/staff', (request, response) => {
   }
 });
 
+app.get('/profile/:username', async (request, response) => {
+  if(request.isAuthenticated()){
+    const user = await userid.findOne({_id: request.user.id})
+    response.render('pages/profile', { 
+      username: user.username,
+      email: user.email,
+      bio: user.bio,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      image: user.image,
+      genre: user.genre,
+      history: user.history,
+      role: user.role,
+      isLoggedIn: true, title: 'Unplugged Games' });
+  } else {
+    response.render('pages/profile', { isLoggedIn: false, title: 'Unplugged Games' });
+  }
+});
+
+
+
 app.get('/login', (request, response) => {
   response.render('pages/login', { isLoggedIn: false, pageTitle: 'Unplugged Games' });
 });
 
-// app.post('/login', function(req, res, next) {
-//   passport.authenticate('local', function(err, user, info) {
-//     if (err) { return next(err); }
-//     // Redirect if it fails
-
-//     if (!user) { return res.redirect('/login'); }
-//     req.logIn(user, function(err) {
-//       if (err) { return next(err); }
-//       // Redirect if it succeeds
-//       return res.redirect('/users/' + user.username);
-//     });
-//   })(req, res, next);
-// });
+// login post
 
 app.post('/login', (req, res) => passport.authenticate('local', { 
   successRedirect: '/',
   failureRedirect: '/login',
   failureFlash: true})(req, res));
 
-// app.post('/login', function(req, res, next) {
-//   console.log(req.url);
-//   passport.authenticate('local', function(err, user, info) {
-//       console.log("authenticate");
-//       console.log(err);
-//       console.log(user);
-//       console.log(info);
-//   })(req, res, next);
-// });
+  app.get('/logout', function(req, res){
+    req.logout();
+    res.redirect('/');
+  });
 
-
-// app.get('/login', (request, response) => {
-//   response.render('pages/login', { pageTitle: 'Unplugged Games' });
-// });
 
 app.get('/register', (request, response) => {
 
@@ -115,13 +131,8 @@ app.get('/register', (request, response) => {
 });
 
 
-// app.post('/register', async (request, response) => {
-
-//   return request.body;
-// });
-
 app.use('/', routes);
-app.use('/user', users);
+app.use('/profile', users);
 
 
 app.listen(port, () => {

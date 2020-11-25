@@ -1,0 +1,127 @@
+<html>
+    <%- include('../partials/profilehead'); %>
+<body>
+            <div class="wrapper">
+                <!--Sidebar-->
+                <div class="sidebar" data-color="purple">
+                    <div class="sidebar-wrapper">
+                        <div class="logo">
+                            <a href="/" class="simple-text">
+                                Unplugged Games
+                            </a>
+                        </div>
+            
+                        <ul class="nav" style="display: block;">
+                            <li>
+                                <a href="/profile">
+                                    <i class="pe-7s-user"></i>
+                                    <p>User Profile</p>
+                                </a>
+                                <hr style="background-color: cornsilk;">
+                            </li>
+                            <li>
+                                <a href="/readlist">
+                                    <i class="pe-7s-note2"></i>
+                                    <p>Read List</p>
+                                </a>
+                                <hr style="background-color: cornsilk;">
+                            </li>
+                            <li>
+                                <a href="/logout">
+                                    <i class="pe-7s-power"></i>
+                                    <p>Log Out</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!--Sidebar end-->
+
+                <!--Main Panel/Content-->
+                <div class="main-panel">
+                    <nav class="navbar navbar-default navbar-fixed" style="background-color: rgba(226, 30, 228, 0.24);">
+                        <div class="container-fluid" >
+                            <div class="navbar-header">
+                                <a class="navbar-brand" href="#" style="color: cornsilk;">User Profile</a>
+                            </div>
+                            <div class="user-panel">
+                                <a href="/">Back</a>
+                            </div>
+                        </div>
+                    </nav>
+                    
+
+                    <div class="content">
+                        <div class="container-fluid">
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <div class="header">
+                                            <h4 class="title">News and Review Read History</h4>
+                                            <p class="category">Recently read articles</p>
+                                        </div>
+                                        <div class="content table-responsive table-full-width">
+                                            <table class="table table-hover table-striped">
+                                                <thead>
+                                                    <th>No</th>
+                                                    <th>Article</th>
+                                                    <th>Writer</th>
+                                                    <th>Category</th>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>1</td>
+                                                        <td>Microsoft Unveils the XBOX Series S at $299</td>
+                                                        <td>Rubin Salim</td>
+                                                        <td>News</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>2</td>
+                                                        <td>'Minecraft' characters come to 'Super Smash Bros. Ultimate' on October 13th</td>
+                                                        <td>Jecky Afrianto</td>
+                                                        <td>News</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>3</td>
+                                                        <td>Xenoblade Chronicles: Future Connected - How Does It Compare to It's Predecessor?</td>
+                                                        <td>Henry Tanujaya</td>
+                                                        <td>Review</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>4</td>
+                                                        <td>FIFA 21 review: A fresher take on the series</td>
+                                                        <td>Charly Julio Aristama</td>
+                                                        <td>Review</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>5</td>
+                                                        <td>Fall Guys Games Review: Easy and fun battle royale games </td>
+                                                        <td>Prinzky Lukito</td>
+                                                        <td>Review</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                             </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            <!-- Footer section -->
+            <%- include('../partials/footer'); %>
+
+            <!-- Footer section end -->
+    </div>  
+    <!--Wrapper End-->
+    <!--====== Javascripts & Jquery ======-->
+	<script src="js/jquery-3.2.1.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/jquery.slicknav.min.js"></script>
+	<script src="js/owl.carousel.min.js"></script>
+	<script src="js/jquery.sticky-sidebar.min.js"></script>
+	<script src="js/jquery.magnific-popup.min.js"></script>
+	<script src="js/main.js"></script>
+
+</body>
+</html>

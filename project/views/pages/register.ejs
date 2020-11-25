@@ -85,7 +85,7 @@
     </head>
 
 <body>
-    <form action="homepage.html">
+    <form action="/profile/register" method="post">
         <div class="container">
             <h1>Register</h1>
             <hr>
@@ -101,11 +101,22 @@
             <br><br>
 
             <label for="pass" style="color: blanchedalmond;"><b>Password</b></label>
-            <input type="password" placeholder="Enter Password" name="pass" id="pass" required>
+            <input type="password" placeholder="Enter Password" name="password" id="password" required>
 
             <label for="psw-repeat" style="color: blanchedalmond;"><b>Repeat Password</b></label>
             <input type="password" placeholder="Repeat Password" name="passrepeat" id="passrepeat" onkeyup='check();' required>
-
+            <% if (messages.error){
+                %>
+                <%= messages.error %> 
+                <% } %> 
+                <% if (messages.info){
+                    %>
+                    <%= messages.info %> 
+                    <% } %> 
+                <% if (messages.success){
+                    %>
+                    <%= messages.success %> 
+                    <% } %> 
             <span id="message"></span>
             <hr>
             <p style="color: blanchedalmond;">By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
@@ -114,7 +125,7 @@
         
         <div class="container main">
             <div class="containerback"><a href="/">Back</a></div>
-            <div class="signin" style="color: blanchedalmond">Already have an account? <a href="hpsesudahlogin.html">Sign in</a>.</p></div>
+            <div class="signin" style="color: blanchedalmond">Already have an account? <a href="/login">Sign in</a>.</p></div>
         </div>
 
     </form>
