@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
-
-const userRoutes = require('./user');
+var QuillDeltaToHtmlConverter = require('quill-delta-to-html').QuillDeltaToHtmlConverter;
+const { convertDeltaToHtml } = require('node-quill-converter');
+const User = require('../models/user');
+const Article = require('../models/article');
 const { request } = require('express');
 
 router.use(express.json());
@@ -45,6 +47,29 @@ router.get('/staff', (request, response) => {
     response.render('pages/staff', { isLoggedIn: false, title: 'Unplugged Games' });
   }
 });
+
+router.get('/article/:slug', async (req, res) => {
+    const article = await Article.findOne({ slug: req.params.slug })
+    const user = await User.find()
+    if (article == null) res.redirect('/')
+
+    //   var delta =  [
+    //     article.content.replace('{"ops":[',''),
+    //     article.content.replace(']}','')
+    // ];
+    
+    // var cfg = {};
+    
+    // var converter = new QuillDeltaToHtmlConverter(delta.ops);
+    
+    // var html = converter.convert(); 
+
+    res.render('pages/viewarticle', {
+      article: article,
+      isLoggedIn: false,
+    })
+  }
+)
 
 router.get('/about', function (req, res) {
   res.send('About this wiki');

@@ -1,5 +1,6 @@
 const { ObjectID, ObjectId } = require('mongodb');
 var mongoose = require('mongoose');
+const slugify = require('slugify')
 
 var ArticleSchema = new mongoose.Schema({
   title: {
@@ -17,6 +18,10 @@ var ArticleSchema = new mongoose.Schema({
   content: {
     type: String,
     required: true
+  },
+  summary: {
+    type: String,
+    required: true
   },  
   visitCount: {
    type: Number,
@@ -30,8 +35,21 @@ var ArticleSchema = new mongoose.Schema({
       data: Buffer,
       contentType: String
   },
-  comments: [{type: Schema.Types.ObjectId, ref: "Comment"}] 
+  slug:{
+    type: String,
+    required: true,
+    unique: true
+  },
+  comments: [{type: mongoose.Schema.ObjectId, ref: "Comment"}] 
 
 }, {timestamps: true});
+
+ArticleSchema.pre('validate', function(next){
+  if(this.title){
+      this.slug = slugify(this.title, { lower:true, strict:true })
+  }
+  next()
+})
+
 
 module.exports = mongoose.model('Article', ArticleSchema);

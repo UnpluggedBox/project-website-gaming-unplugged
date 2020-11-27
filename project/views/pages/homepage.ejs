@@ -40,57 +40,31 @@
 						<h2>Latest News and Reviews by Our Staff</h2>
 					</div>
 					<ul class="blog-filter">
-						<li><a href="newslist1.html">News</a></li>
-						<li><a href="reviewlist.html">Reviews</a></li>
-						<li><a href="#">JRPG</a></li>
+						<li><a href="/newslist">News</a></li>
+						<li><a href="/reviewlist">Reviews</a></li>
+						<li><a href="/games">JRPG</a></li>
 						<li><a href="#">MMORPG</a></li>
                     </ul>
-                    
-                    <!-- Blog item -->
-					<div class="blog-item">
-						<div class="blog-thumb">
-							<img src="images/xsx.jpg" alt="" style="height: 325">
-						</div>
-						<div class="blog-text text-box text-white">
-							<div class="top-meta">9 - 9 - 2020 in <a href="">News</a></div>
-							<h3>Microsoft Unveils the XBOX Series S at $299</h3>
-							<p style="color:#ffffff"><b>Xbox Series S delivers the same next generation speed and performance that define Xbox Series X.
-                                It is similar in CPU and has the identical I/O performance as Xbox Series X, 
-                                making it easier for developers to deliver the same great performance, while rendering at a lower resolution.</b>
-                            </p>
-							<a href="#" class="read-more">Read More  <img src="images/icons/double-arrow.png" alt="#"/></a>
-						</div>
-					</div>
-                    <!-- Blog item -->
-                    
+					
+					
 					<!-- Blog item -->
+					<% article.forEach(article => { %>
 					<div class="blog-item">
 						<div class="blog-thumb">
-							<img src="images/ps5.jpg" alt="" style="height: 325">
+							<img src="data:image/<%= article.image.contentType %>;base64,<%= article.image.data.toString('base64') %>" alt="" style="height: 325">
 						</div>
 						<div class="blog-text text-box text-white">
-							<div class="top-meta">20 - 8 - 2020 in <a href="">News</a></div>
-							<h3>Sony Reveals Latest PS5 Details</h3>
-							<p style="color:#ffffff"><b>The PlayStation 5 is an upcoming home video game console developed by Sony Interactive Entertainment. 
-                                Announced in 2019 as the successor to the PlayStation 4, it is scheduled to launch in late 2020.</b></p>
-							<a href="#" class="read-more">Read More  <img src="images/icons/double-arrow.png" alt="#"/></a>
-						</div>
-                    </div>
-                    <!-- Blog item -->
-
-                    <!-- Blog item -->
-					<div class="blog-item">
-						<div class="blog-thumb">
-							<img src="images/XC_Future_Connected.jpg" alt="" style="height: 300">
-						</div>
-						<div class="blog-text text-box text-white">
-							<div class="top-meta">19 - 8 - 2020 in  <a href="">Reviews</a></div>
-							<h3><b>Xenoblade Chronicles: Future Connected - How Does It Compare to It's Predecessor?</h3>
-							<p style="color:#ffffff">Xenoblade Chronicles: Future Connected (Japanese: つながる未来, Tsunagaru mirai) is an extra epilogue story extension of Xenoblade Chronicles: Definitive Edition. 
-                                It revolves around Melia, accompanied by Shulk and two unfamiliar Nopon, Kino and Nene, who are all playable in the new area Bionis' Shoulder. </b></p>
-							<a href="review.html" class="read-more">Read More  <img src="images/icons/double-arrow.png" alt="#"/></a>
+							<div class="top-meta"><label><%= article.updatedAt.toLocaleString() %> | <a href="/reviewlist"><%= article.category %></a></div>
+							<h3><%= article.title %></h3>
+							<p style="color:#ffffff"><%= article.summary %><b></b>
+                            </p>
+							<a href="/article/<%= article.slug %>" class="read-more">Read More  <img src="images/icons/double-arrow.png" alt="#"/></a>
 						</div>
 					</div>
+					<% }) %>
+					<!-- Blog item -->
+					
+
                 </div>
                 <!-- Blog item -->
 

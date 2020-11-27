@@ -71,11 +71,6 @@
                                     <div class="content">
                                         <form action="/profile/<%= username %>/article/post" method="post" enctype="multipart/form-data">
                                             <input type="file" id="image" name="image">
-                                            <span id="message" style="color: red;">            
-                                                <% if (messages.error){ %>
-                                                <%= messages.error %> 
-                                                <% } %> 
-                                                </span>
                                                 <br>
                                           <br>
                                             <div class="row">
@@ -106,6 +101,15 @@
                                             </div>
         
                                             <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Summary</label>
+                                                        <input type="text" class="form-control" name="summary" id="summary" placeholder="Article summary here..">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label>Genres</label><br>
@@ -125,7 +129,8 @@
                                                 </div>
                                             </div>
         
-                                            <label>Content</label>
+                                            <label for="content">Content</label>
+                                            <input name="content" type="hidden">
                                                 <div id="editor-container" style="width: 1010px; height: 150px;">
                                                     <p></p>
                                                 </div>
@@ -179,14 +184,10 @@
         var form = document.querySelector('form');
         form.onsubmit = function() {
         // Populate hidden form on submit
-        var about = document.querySelector('input[name=about]');
+        var about = document.querySelector('input[name=content]');
         about.value = JSON.stringify(quill.getContents());
         
-        console.log("Submitted", $(form).serialize(), $(form).serializeArray());
-        
-        // No back end to actually submit to!
-        alert('Open the console to see the submit data!')
-        return false;
+        console.log("Submitted", $(form).serialize(), $(form).serializeArray())
         };
     
     </script>

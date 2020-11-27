@@ -15,7 +15,8 @@ require('dotenv').config();
 const routes = require('./routes/index');
 const users = require('./routes/user');
 const userid = require('./models/user');
-//const user = require('./models/user');
+const articleid = require('./models/article');
+const e = require('express');
 const app = express();
 var storage = multer.diskStorage({
   destination: function(req, file, cb) {
@@ -44,15 +45,17 @@ app.use(passport.session());
 
 
 app.get('/', async (request, response) => {
+  const article = await articleid.find()
   if(request.isAuthenticated()){
     const user = await userid.findOne({_id: request.user.id})
     console.log(user)
     response.render('pages/homepage', { 
       username: user.username,
-      isLoggedIn: true, title: "Unplugged Games" });
+      isLoggedIn: true, 
+      article: article, title: "Unplugged Games" });
 
   } else {
-    response.render('pages/homepage', { isLoggedIn: false, title: 'Unplugged Games' });
+    response.render('pages/homepage', { isLoggedIn: false, article: article, title: 'Unplugged Games' });
   }
 });
 

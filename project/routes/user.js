@@ -4,6 +4,7 @@ const multer = require("multer");
 var fs = require('fs'); 
 var path = require('path'); 
 const User = require('../models/user');
+const Article = require('../models/article');
 const router = express.Router();
 var storage = multer.diskStorage({
     destination: function(req, file, cb) {
@@ -113,6 +114,37 @@ router.post("/:username/upload", upload.single("image"), async (req, res) => {
     res.redirect('/');
   }
   });
+
+  router.post('/:username/article/post', upload.single("image"), async (req, res) => {
+    let article = await Article.findOne({title:req.body.title})
+    const docs = await User.findOne({username:req.params.username})
+          docs.username = req.params.username; 
+
+          if (req.body.filename == undefined) {
+            // req.flash('error', 'No picture selected!');
+            res.redirect(`/profile/${req.params.username}`);
+          }
+  
+      var obj = { 
+        img: { 
+            data: fs.readFileSync(path.join(__dirname + '/../uploads/' + req.file.filename)), 
+            contentType: 'image/png'
+        } 
+        } 
+
+        article = new Article({
+          title: req.body.title,
+          writer: req.user.id,
+          genre: req.body.genre,
+          summary: req.body.summary,
+          content: req.body.content,
+          category: req.body.category,
+          image: obj.img
+        });
+          await article.save();
+          res.redirect(`/profile/${req.params.username}/article`);
+
+    });
 
 
 module.exports = router;
