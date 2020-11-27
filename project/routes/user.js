@@ -15,30 +15,63 @@ var storage = multer.diskStorage({
   });
 var upload = multer({ storage: storage })
 
-router.get('/asd', function (req, res) {
-    res.send('About the');
-  })
+router.get('/:username', async (request, response) => {
+  if(request.isAuthenticated()){
+    const user = await User.findOne({_id: request.user.id})
+    response.render('pages/profile', { 
+      username: user.username,
+      email: user.email,
+      bio: user.bio,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      image: user.image,
+      genre: user.genre,
+      history: user.history,
+      role: user.role,
+      isLoggedIn: true, title: 'Unplugged Games' });
+  } else {
+    response.render('pages/profile', { isLoggedIn: false, title: 'Unplugged Games' });
+  }
+});
 
-// router.post('/register', async (req, res) => {
-//     // Check if this user already exists
-//     let user = await User.findOne({ email: req.body.email });
-//     let uname = await User.findOne({ username: req.body.username });
-//     if (user) {
-//       req.flash("error","Email is already registered");
-//       res.locals.messages = req.flash();
-//     } else {
-//         // Insert the new user if they do not exist yet
-//         user = new User({
-//             username: req.body.username,
-//             email: req.body.email,
-//             password: req.body.password
-//         });
-//         const salt = await bcrypt.genSalt(10);
-//         user.password = await bcrypt.hash(user.password, salt);
-//         await user.save();
-//         res.send(user);
-//     }
-// });
+router.get('/:username/readlist', async (request, response) => {
+  if(request.isAuthenticated()){
+    const user = await User.findOne({_id: request.user.id})
+    response.render('pages/readlist', { 
+      username: user.username,
+      email: user.email,
+      bio: user.bio,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      image: user.image,
+      genre: user.genre,
+      history: user.history,
+      role: user.role,
+      isLoggedIn: true, title: 'Unplugged Games' });
+  } else {
+    response.render('pages/profile', { title: 'Unplugged Games' });
+  }
+  });
+
+  router.get('/:username/article', async (request, response) => {
+    if(request.isAuthenticated()){
+      const user = await User.findOne({_id: request.user.id})
+      response.render('pages/article', { 
+        username: user.username,
+        email: user.email,
+        bio: user.bio,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        image: user.image,
+        genre: user.genre,
+        history: user.history,
+        role: user.role,
+        isLoggedIn: true, title: 'Unplugged Games' });
+    } else {
+      response.render('pages/profile', { title: 'Unplugged Games' });
+    }
+    });
+
 
 router.post('/:username/update', async (req, res) => {
     const docs = await User.findOne({username:req.params.username})
@@ -58,11 +91,12 @@ router.post('/:username/update', async (req, res) => {
 router.post("/:username/upload", upload.single("image"), async (req, res) => {
     const docs = await User.findOne({username:req.params.username})
         docs.username = req.params.username; 
+        
         if (req.body.filename == undefined) {
-          req.flash('error', 'No picture selected!');
+          // req.flash('error', 'No picture selected!');
           res.redirect(`/profile/${req.params.username}`);
         }
-        
+
     var obj = { 
       img: { 
           data: fs.readFileSync(path.join(__dirname + '/../uploads/' + req.file.filename)), 

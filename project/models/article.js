@@ -4,17 +4,28 @@ var mongoose = require('mongoose');
 var ArticleSchema = new mongoose.Schema({
   title: {
       type: String, 
-      required: [true, "can't be blank"],
-      index: true,
-      unique: true
+      required: [true, "can't be blank"]
     },
   writer: {
       type: mongoose.Schema.ObjectId,
       ref: 'User',
       required: [true, "can't be blank"]
     },
-  content: String,  
-  visitCount: Number,
+  genre: [{
+      type: String
+  }],
+  content: {
+    type: String,
+    required: true
+  },  
+  visitCount: {
+   type: Number,
+   default: 0,
+  },
+  category: {
+    type: String,
+    required: true
+  }, 
   image: {
       data: Buffer,
       contentType: String

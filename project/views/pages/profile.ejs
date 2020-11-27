@@ -13,6 +13,13 @@
             
                         <ul class="nav" style="display: block;">
                             <li>
+                                <a href="/profile/<%= username %>/article">
+                                    <i class="pe-7s-user"></i>
+                                    <p> Article</p>
+                                </a>
+                                <hr style="background-color: cornsilk;">
+                            </li>
+                            <li>
                                 <a href="/profile/<%= username %>">
                                     <i class="pe-7s-user"></i>
                                     <p>User Profile</p>
@@ -20,7 +27,7 @@
                                 <hr style="background-color: cornsilk;">
                             </li>
                             <li>
-                                <a href="/readlist">
+                                <a href="/profile/<%= username %>/readlist">
                                     <i class="pe-7s-note2"></i>
                                     <p>Read List</p>
                                 </a>
@@ -42,7 +49,7 @@
                     <nav class="navbar navbar-default navbar-fixed" style="background-color: rgba(226, 30, 228, 0.24);">
                         <div class="container-fluid" >
                             <div class="navbar-header">
-                                <a class="navbar-brand" href="#" style="color: cornsilk;">User Profile</a>
+                                <a class="navbar-brand" href="/profile/<%= username %>" style="color: cornsilk;">User Profile</a>
                             </div>
                             <div class="user-panel">
                                 <a href="/">Back</a>

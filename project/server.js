@@ -49,71 +49,19 @@ app.get('/', async (request, response) => {
     console.log(user)
     response.render('pages/homepage', { 
       username: user.username,
-      isLoggedIn: true, title: 'Unplugged Games' });
+      isLoggedIn: true, title: "Unplugged Games" });
 
   } else {
     response.render('pages/homepage', { isLoggedIn: false, title: 'Unplugged Games' });
   }
 });
 
-// app.get('/games', (request, response) => {
-//   response.render('pages/games', { title: 'Unplugged Games' });
-// });
-
-app.get('/reviewlist', (request, response) => {
-  if(request.isAuthenticated()){
-    response.render('pages/reviewlist', { username: request.user.username, isLoggedIn: true, title: 'Unplugged Games' });
-
-  } else {
-    response.render('pages/reviewlist', { isLoggedIn: false, title: 'Unplugged Games' });
-  }
-});
-
-app.get('/newslist', (request, response) => {
-  if(request.isAuthenticated()){
-    response.render('pages/newslist', { username: request.user.username, isLoggedIn: true, title: 'Unplugged Games' });
-
-  } else {
-    response.render('pages/newslist', { isLoggedIn: false, title: 'Unplugged Games' });
-  }
-});
-
-
-app.get('/staff', (request, response) => {
-  if(request.isAuthenticated()){
-    response.render('pages/staff', { username: request.user.username, isLoggedIn: true, title: 'Unplugged Games' });
-
-  } else {
-    response.render('pages/staff', { isLoggedIn: false, title: 'Unplugged Games' });
-  }
-});
-
-app.get('/profile/:username', async (request, response) => {
-  if(request.isAuthenticated()){
-    const user = await userid.findOne({_id: request.user.id})
-    response.render('pages/profile', { 
-      username: user.username,
-      email: user.email,
-      bio: user.bio,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      image: user.image,
-      genre: user.genre,
-      history: user.history,
-      role: user.role,
-      isLoggedIn: true, title: 'Unplugged Games' });
-  } else {
-    response.render('pages/profile', { isLoggedIn: false, title: 'Unplugged Games' });
-  }
-});
-
-
+// route login
 
 app.get('/login', (request, response) => {
   response.render('pages/login', { isLoggedIn: false, pageTitle: 'Unplugged Games' });
 });
 
-// login post
 
 app.post('/login', (req, res) => passport.authenticate('local', { 
   successRedirect: '/',
@@ -125,6 +73,7 @@ app.post('/login', (req, res) => passport.authenticate('local', {
     res.redirect('/');
   });
 
+// route register
 
 app.get('/register', (request, response) => {
 
