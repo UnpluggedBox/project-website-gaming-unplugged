@@ -53,17 +53,6 @@ router.get('/article/:slug', async (req, res) => {
     const user = await User.find()
     if (article == null) res.redirect('/')
 
-    //   var delta =  [
-    //     article.content.replace('{"ops":[',''),
-    //     article.content.replace(']}','')
-    // ];
-    
-    // var cfg = {};
-    
-    // var converter = new QuillDeltaToHtmlConverter(delta.ops);
-    
-    // var html = converter.convert(); 
-
     res.render('pages/viewarticle', {
       article: article,
       isLoggedIn: false,

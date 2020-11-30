@@ -132,6 +132,8 @@ router.post("/:username/upload", upload.single("image"), async (req, res) => {
         } 
         } 
 
+        console.log(req.body.content)
+
         article = new Article({
           title: req.body.title,
           writer: req.user.id,

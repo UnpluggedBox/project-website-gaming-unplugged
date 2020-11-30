@@ -2,40 +2,7 @@
     <%- include('../partials/profilehead'); %>
 <body>
             <div class="wrapper">
-                <!--Sidebar-->
-                <div class="sidebar" data-color="purple">
-                    <div class="sidebar-wrapper">
-                        <div class="logo">
-                            <a href="/" class="simple-text">
-                                Unplugged Games
-                            </a>
-                        </div>
-            
-                        <ul class="nav" style="display: block;">
-                            <li>
-                                <a href="/profile/<%= username %>">
-                                    <i class="pe-7s-user"></i>
-                                    <p>User Profile</p>
-                                </a>
-                                <hr style="background-color: cornsilk;">
-                            </li>
-                            <li>
-                                <a href="/profile/<%= username %>/readlist">
-                                    <i class="pe-7s-note2"></i>
-                                    <p>Read List</p>
-                                </a>
-                                <hr style="background-color: cornsilk;">
-                            </li>
-                            <li>
-                                <a href="/logout">
-                                    <i class="pe-7s-power"></i>
-                                    <p>Log Out</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <!--Sidebar end-->
+                <%- include('../partials/sidebar'); %>
 
                 <!--Main Panel/Content-->
                 <div class="main-panel">

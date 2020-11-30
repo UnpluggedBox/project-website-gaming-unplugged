@@ -3,45 +3,7 @@
 <body>
         <div class="wrapper">
                 <!--Sidebar-->
-                <div class="sidebar" data-color="purple">
-                    <div class="sidebar-wrapper">
-                        <div class="logo">
-                            <a href="/" class="simple-text">
-                                Unplugged Games
-                            </a>
-                        </div>
-            
-                        <ul class="nav" style="display: block;">
-                            <li>
-                                <a href="/profile/<%= username %>/article">
-                                    <i class="pe-7s-user"></i>
-                                    <p>Article</p>
-                                </a>
-                                <hr style="background-color: cornsilk;">
-                            </li>
-                            <li>
-                                <a href="/profile/<%= username %>">
-                                    <i class="pe-7s-user"></i>
-                                    <p>User Profile</p>
-                                </a>
-                                <hr style="background-color: cornsilk;">
-                            </li>
-                            <li>
-                                <a href="/profile/<%= username %>/readlist">
-                                    <i class="pe-7s-note2"></i>
-                                    <p>Read List</p>
-                                </a>
-                                <hr style="background-color: cornsilk;">
-                            </li>
-                            <li>
-                                <a href="/logout">
-                                    <i class="pe-7s-power"></i>
-                                    <p>Log Out</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+                <%- include('../partials/sidebar'); %>
                 <!--Sidebar end-->
 
                 <!--Main Panel/Content-->
@@ -130,15 +92,14 @@
                                             </div>
         
                                             <label for="content">Content</label>
-                                            <input name="content" type="hidden">
-                                                <div id="editor-container" style="width: 1010px; height: 150px;">
-                                                    <p></p>
+                                            <input type="hidden" name="content" id="content">
+                                                <div id="texteditor" name="texteditor">
+                                                    <p>Write content here..</p>
                                                 </div>
                                                 <br>
-                                                      
-                                                  
-        
-                                            <button type="submit" class="btn btn-info btn-fill pull-right">Update Profile</button>
+
+                                            <button class="btn btn-info btn-fill pull-right">Post Article</button>    
+                                            <button type="button" onclick="changeHiddenContent();" class="btn btn-info btn-fill pull-right" style="margin-right: 10;">Validate Content</button>
                                             <div class="clearfix"></div>
 
                                         </form>
@@ -155,11 +116,32 @@
             <footer class="footer-section">
                 <div class="container">
                     <ul class="main-menu footer-menu">
-                        <li></li>
-                        <li></li>
-                        <li></li>
                         <li><a href="/"></a></li>
+
+                    </ul>
+                    <ul class="main-menu footer-menu">
                         <li><a href="/"></a></li>
+
+                    </ul>
+                    <ul class="main-menu footer-menu">
+                        <li><a href="/"></a></li>
+
+                    </ul>
+                    <ul class="main-menu footer-menu">
+                        <li><a href="/"></a></li>
+
+                    </ul>
+                    <ul class="main-menu footer-menu">
+                        <li><a href="/"></a></li>
+
+                    </ul>
+                    <ul class="main-menu footer-menu">
+                        <li><a href="/"></a></li>
+
+                    </ul>
+                    <ul class="main-menu footer-menu">
+                        <li><a href="/"></a></li>
+
                     </ul>
                 </div>
             </footer>
@@ -167,30 +149,17 @@
     </div>
     <!--Wrapper End-->  
     <!--====== Javascripts & Jquery ======-->
-    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
     <script>
-        var quill = new Quill('#editor-container', {
-        modules: {
-            toolbar: [
-            ['bold', 'italic', 'underline'],
-            ['link', 'blockquote', 'code-block', 'image'],
-            [{ list: 'ordered' }, { list: 'bullet' }]
-            ]
-        },
-        placeholder: 'Compose an epic...',
-        theme: 'snow'
-        });
-    
-        var form = document.querySelector('form');
-        form.onsubmit = function() {
-        // Populate hidden form on submit
-        var about = document.querySelector('input[name=content]');
-        about.value = JSON.stringify(quill.getContents());
-        
-        console.log("Submitted", $(form).serialize(), $(form).serializeArray())
-        };
-    
+        var editor1 = new RichTextEditor("#texteditor");
+
+            function changeHiddenContent(){
+            var htmlcontent = editor1.getHTMLCode();
+            document.getElementById("content").value = htmlcontent;
+            alert(document.getElementById("content").value)
+        }
+
     </script>
+
     <script>
 
         document.getElementById("biotext").innerHTML = "<%= bio %>";
