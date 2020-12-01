@@ -73,6 +73,44 @@ router.get('/:username/readlist', async (request, response) => {
     }
     });
 
+  router.get('/:username/articlelist', async (request, response) => {
+    const article = await Article.find()
+    if(request.isAuthenticated()){
+      const user = await User.findOne({_id: request.user.id})
+      response.render('pages/articlelist', { 
+        username: user.username,
+        email: user.email,
+        bio: user.bio,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        image: user.image,
+        genre: user.genre,
+        history: user.history,
+        role: user.role,
+        isLoggedIn: true,
+        article: article,
+        title: 'Unplugged Games' });
+    } else {
+      response.render('pages/profile', { title: 'Unplugged Games' });
+    }
+    });
+
+    router.get('/:username/article/:slug/edit', async (req, res) => {
+      const docs = await Article.findOne({slug:req.params.slug})
+      
+      if(req.isAuthenticated()){
+        const user = await User.findOne({_id: req.user.id})
+        res.render('pages/articleedit', { 
+          username: user.username,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          article: docs,
+          isLoggedIn: true, title: 'Unplugged Games' });
+      } else {
+        response.render('pages/profile', { isLoggedIn: false, title: 'Unplugged Games' });
+      }
+
+  });
 
 router.post('/:username/update', async (req, res) => {
     const docs = await User.findOne({username:req.params.username})
@@ -147,6 +185,34 @@ router.post("/:username/upload", upload.single("image"), async (req, res) => {
           res.redirect(`/profile/${req.params.username}/article`);
 
     });
+
+    router.post('/:username/article/:slug/edit', upload.single("image"), async (req, res) => {
+      const docs = await Article.findOne({slug:req.params.slug})
+
+        if (req.body.filename == undefined) {
+          // req.flash('error', 'No picture selected!');
+          res.redirect(`/profile/${req.params.username}`);
+        }
+
+      var obj = { 
+        img: { 
+            data: fs.readFileSync(path.join(__dirname + '/../uploads/' + req.file.filename)), 
+            contentType: 'image/png'
+        } 
+      } 
+            docs.title = req.body.title; 
+            docs.category = req.body.category;
+            docs.summary = req.body.summary;
+            docs.content = req.body.content;
+            docs.image = obj.img;
+     try{
+      docs.save();
+      res.redirect(`/profile/articlelist`);
+     }catch(e){
+     console.log(e)
+      res.redirect('/');
+     }
+  });
 
 
 module.exports = router;

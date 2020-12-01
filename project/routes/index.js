@@ -5,16 +5,11 @@ const { convertDeltaToHtml } = require('node-quill-converter');
 const User = require('../models/user');
 const Article = require('../models/article');
 const { request } = require('express');
+const e = require('express');
 
 router.use(express.json());
 
-// router.get('/', (request, response) => {
-//     response.render('layout', { pageTitle: 'Unplugged Games', template: 'index' });
-//   });
-
 router.get('/games', async (request, response) => {
-  // var query = request.query.search;
-  // let article = await Article.find({title:request.body.search})
   let articles
   if(request.query.search) {
     await Article.find({"title":{'$regex':request.query.search,"$options":"i"}},function(err, result){
@@ -63,15 +58,41 @@ router.get('/staff', (request, response) => {
 
 router.get('/article/:slug', async (req, res) => {
     const article = await Article.findOne({ slug: req.params.slug })
-    const user = await User.find()
+    const relatednews = await Article.find()
+    const fullName = await User.findOne({"_id":{"$in":article["writer"]}})
     if (article == null) res.redirect('/')
 
-    res.render('pages/viewarticle', {
-      article: article,
-      isLoggedIn: false,
-    })
-  }
-)
+    if(req.isAuthenticated()){
+      res.render('pages/viewarticle', {
+        username: req.user.username,
+        isLoggedIn: true,
+        article: article,
+        fullName: fullName
+      });
+  
+    } else if (req.isAuthenticated() && (article.category == 'News'))  {
+      res.render('pages/viewarticlenews', {
+        username: req.user.username,
+        isLoggedIn: true,
+        article: article,
+        fullName: fullName,
+        relatednews: relatednews
+      });
+    } else if(article.category == 'News') {
+      res.render('pages/viewarticlenews', {
+        article: article,
+        fullName: fullName,
+        relatednews: relatednews,
+        isLoggedIn: false,
+      });
+    } else {
+      res.render('pages/viewarticle', {
+        article: article,
+        fullName: fullName,
+        isLoggedIn: false,
+      });
+    }
+  })
 
 router.get('/about', function (req, res) {
   res.send('About this wiki');

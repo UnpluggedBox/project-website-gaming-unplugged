@@ -15,7 +15,7 @@
                           <h2 class="display-5" style="margin-bottom: -20px; color:whitesmoke"><%= article.title %></h2>
                           <p class="lead">
                               <h2 class="text-white">
-                            <h4>Written by: <a href="/staff" style="color:red"><u><%= article.writer %></u></a> <h6>Published: <%= article.createdAt.toLocaleString() %>, last Updated <%= article.updatedAt.toLocaleString() %></h6></h4>
+                            <h4>Written by: <a href="/staff" style="color:red"><u><%= fullName.firstName + " " + fullName.lastName %></u></a> <h6>Published: <%= article.createdAt.toLocaleString() %>, last Updated <%= article.updatedAt.toLocaleString() %></h6></h4>
                         </h2>
                         </p>
                         </div>

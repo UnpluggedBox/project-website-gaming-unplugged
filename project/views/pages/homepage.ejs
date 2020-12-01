@@ -43,7 +43,7 @@
 						<li><a href="/newslist">News</a></li>
 						<li><a href="/reviewlist">Reviews</a></li>
 						<li><a href="/games">JRPG</a></li>
-						<li><a href="#">MMORPG</a></li>
+						<li><a href="/games">MMORPG</a></li>
                     </ul>
 					
 					
@@ -51,7 +51,7 @@
 					<% article.forEach(article => { %>
 					<div class="blog-item">
 						<div class="blog-thumb">
-							<img src="data:image/<%= article.image.contentType %>;base64,<%= article.image.data.toString('base64') %>" alt="" style="height: 325">
+							<img src="data:image/<%= article.image.contentType %>;base64,<%= article.image.data.toString('base64') %>" alt="" style="height: 325; width: 345;">
 						</div>
 						<div class="blog-text text-box text-white">
 							<div class="top-meta"><label><%= article.updatedAt.toLocaleString() %> | <a href="/reviewlist"><%= article.category %></a></div>
