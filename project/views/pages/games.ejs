@@ -18,21 +18,39 @@
 					<br>
 					<div style="margin-top: -30px; margin-bottom: -30px;">
 					<ul class="blog-filter">
-						<li><a href="/newslist">News</a></li>.0
+						<li><a href="/newslist">News</a></li>
 						<li><a href="/reviewlist">Reviews</a></li>
 					</ul>
                     </div>
                     
                     <!--Search Box-->
 
-                    <div class="search" style="position: absolute;"><input type="search" class="search-box" id="search-criteria"/>
-                        <span class="search-button" >
+                    <div class="search" style="position: absolute;"><form action="/games" method="GET"> 
+						<input type="search" class="search-box" id="search" name="search"/>
+						</form>
+                        <span class="search-button">
                             <span class="search-icon"></span>
                           </span> </div>
                     <div><br><br><br></div>
-
 					<!-- Blog item -->
-					
+					<% if(article) { %>
+					<% article.forEach(article => { %>
+										<div class="blog-item">
+											<div class="blog-thumb">
+												<img src="data:image/<%= article.image.contentType %>;base64,<%= article.image.data.toString('base64') %>" alt="" style="height: 325">
+										</div>
+										<div class="blog-text text-box text-white">
+										<div class="top-meta"><label><%= article.updatedAt.toLocaleString() %> | <a href="/reviewlist"><%= article.category %></a></div>
+										<h3><%= article.title %></h3>
+										<p style="color:#ffffff"><%= article.summary %><b></b>
+										</p>
+									<a href="/article/<%= article.slug %>" class="read-more">Read More  <img src="images/icons/double-arrow.png" alt="#"/></a>
+								</div>
+							</div>
+						<% })} %>
+					<!-- Blog item -->
+
+
 
                 </div>
                 <!-- Blog item -->
@@ -117,8 +135,24 @@
 	<script src="js/owl.carousel.min.js"></script>
 	<script src="js/jquery.sticky-sidebar.min.js"></script>
 	<script src="js/jquery.magnific-popup.min.js"></script>
-    <script src="js/main.js"></script>
-    <script>
+	<script src="js/main.js"></script>
+	<!-- <script>
+		$('#search-critera').onkeyup(function() {
+
+			// Place JavaScript code here...
+			function searchPartial(form) {
+			var formData = $(search-criteria).serializeArray();
+			$.get('/games', {
+				search: formData[0].value
+			}).then(function (data) {
+				$('#search-result').html(data);
+			});
+			}
+
+			window.searchPartial = searchPartial;
+		});
+	</script> -->
+    <!-- <script>
     $("#search-criteria").on("keyup", function() {
         var g = $(this).val().toLowerCase();
         $(".blog-item").each(function() {
@@ -127,7 +161,19 @@
 
             });
         });
-    </script>
+	</script> -->
+	<!-- <script>
+			$("#search-criteria").on("keyup", function() {
+				var g = $(this).val().toLowerCase();
+				$.ajax({
+					dataType: 'json',
+					data: $('#title').serialize(),
+					type: 'GET',
+					url: "/games",
+					success: handleButtonResponse,
+				});
+				});
+	</script> -->
     <script>
     $('.search-button').click(function(){
         $(this).parent().toggleClass('open');

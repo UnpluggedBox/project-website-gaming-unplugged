@@ -12,12 +12,25 @@ router.use(express.json());
 //     response.render('layout', { pageTitle: 'Unplugged Games', template: 'index' });
 //   });
 
-router.get('/games', (request, response) => {
+router.get('/games', async (request, response) => {
+  // var query = request.query.search;
+  // let article = await Article.find({title:request.body.search})
+  let articles
+  if(request.query.search) {
+    await Article.find({"title":{'$regex':request.query.search,"$options":"i"}},function(err, result){
+        if(err){
+            console.log(err);
+        } else {
+            articles = result
+        }
+    })
+  }
+  
   if(request.isAuthenticated()){
-    response.render('pages/games', { username: request.user.username, isLoggedIn: true, title: 'Unplugged Games' });
+    response.render('pages/games', { username: request.user.username, article: articles, isLoggedIn: true, title: 'Unplugged Games' });
 
   } else {
-    response.render('pages/games', { isLoggedIn: false, title: 'Unplugged Games' });
+    response.render('pages/games', { isLoggedIn: false, article: articles, title: 'Unplugged Games' });
   }
 });
 
