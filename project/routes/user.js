@@ -6,6 +6,8 @@ var path = require('path');
 const User = require('../models/user');
 const Article = require('../models/article');
 const router = express.Router();
+const mongoose = require('mongoose');
+const db = mongoose.connection;
 var storage = multer.diskStorage({
     destination: function(req, file, cb) {
         cb(null, 'uploads');
@@ -75,6 +77,26 @@ router.get('/:username/readlist', async (request, response) => {
 
   router.get('/:username/articlelist', async (request, response) => {
     const article = await Article.find()
+    var fullNameResult = []
+    db.collection('articles').aggregate([
+      // Join with users table
+      // { "$addFields": { "writerName": { $concat: [ "$firstName", "$lastName" ] }}},
+      {
+          "$lookup":{
+              "from": "users",       
+              "localField": "writer",  
+              "foreignField": "_id", 
+              "as": "fullName"         
+          }
+      },
+      
+      { "$replaceRoot": { "newRoot": { "$mergeObjects": [ { "$arrayElemAt": [ "$fullName", 0 ] }, "$$ROOT" ] } }      },
+      { "$project": { "fullName": 0 } }
+
+  ]).toArray(async function(err, result) {
+    if (err) throw err;
+    fullNameResult = result
+
     if(request.isAuthenticated()){
       const user = await User.findOne({_id: request.user.id})
       response.render('pages/articlelist', { 
@@ -88,11 +110,17 @@ router.get('/:username/readlist', async (request, response) => {
         history: user.history,
         role: user.role,
         isLoggedIn: true,
-        article: article,
+        article: fullNameResult,
         title: 'Unplugged Games' });
     } else {
       response.render('pages/profile', { title: 'Unplugged Games' });
     }
+
+    console.log(fullNameResult)
+    // response.send(fullNameResult)
+    // res.render('pages/articlelist', {fullName: fullNameResult});
+    });
+
     });
 
     router.get('/:username/article/:slug/edit', async (req, res) => {
@@ -170,7 +198,7 @@ router.post("/:username/upload", upload.single("image"), async (req, res) => {
         } 
         } 
 
-        console.log(req.body.content)
+       // console.log(req.body.content)
 
         article = new Article({
           title: req.body.title,

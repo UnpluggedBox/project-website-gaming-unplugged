@@ -49,124 +49,51 @@
                 <h4><a href="" style="color:rgb(255, 255, 255)">Comments</a><u></u> </h4><br>
                 <!--Posted Comments-->
                 <div class="container">
-                    <div class="row">
-                        <!--Comment item-->
-                        <div class="col-sm-1">
-                            <div class="thumbnail">
-                            <img class="rounded-circle" src="images/avatar/comment1.png">
-                            </div><!--thumbnail -->
+                    <% comments.forEach(comments => { %>
+                        <div class="row">
+                            <!--Comment item-->
+                            <div class="col-sm-1">
+                                <div class="thumbnail">
+                                <img class="rounded-circle" src="data:image/<%= comments.image.contentType %>;base64,<%= comments.image.data.toString('base64') %>" style="height: 50px;">
+                                </div><!--thumbnail -->
+                            </div>
+                            
+                            <div class="col-sm-5">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <strong><%= comments.username %></strong> <span style="color: whitesmoke;"><%= comments.createdAt.toLocaleString() %> </span>
+                                    </div>
+                                <div class="panel-body">
+                                    <%= comments.content %>
+                                </div><!--panel body -->
+                                </div><!--panel default -->
+                            </div>
                         </div>
-                        
-                        <div class="col-sm-5">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <strong>UnpluggedBox</strong> <span style="color: whitesmoke;">commented 5 days ago</span>
-                                </div>
-                            <div class="panel-body">
-                            Horrible news, this is embarassing!
-                            </div><!--panel body -->
-                            </div><!--panel default -->
-                        </div>
-                    </div>
-                    <hr style="background-color: cadetblue;">
-                    <!--Comment item-->
-                    <div class="row">
-                        <div class="col-sm-1">
-                            <div class="thumbnail">
-                            <img class="rounded-circle" src="images/avatar/comment2.jpg">
-                            </div><!--thumbnail-->
-                        </div>
-                        
-                        <div class="col-sm-5">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <strong>Shroud</strong> <span style="color: whitesmoke;">commented 3 days ago</span>
-                                </div>
-                            <div class="panel-body">
-                            I don't want to use facebook anymore..
-                            </div><!--panel body -->
-                            </div><!--panel default-->
-                        </div>
-                    </div>
-                    <hr style="background-color: cadetblue;">
-                    <!--Comment item-->
-                    <div class="row">
-                        <div class="col-sm-1">
-                            <div class="thumbnail">
-                            <img class="rounded-circle" src="images/avatar/comment3.jpg">
-                            </div><!--thumbnail -->
-                        </div>
-                        
-                        <div class="col-sm-5">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <strong>Dendi</strong> <span style="color: whitesmoke;">commented 2 days ago</span>
-                                </div>
-                            <div class="panel-body">
-                            I'll be buying the HTC Vive instead!
-                            </div><!--panel-body -->
-                            </div><!--panel default-->
-                        </div>
-                    </div>
+                        <hr style="background-color: cadetblue;">
+                        <% }) %>
                 </div>
                 <!--Posted Comments section end-->
                 <hr class="border-bottom">
                 <!--Comment section-->
-                <form action="news.html" id="usrform">
-                    Name: <input type="text" name="usrname">
-                    <input type="submit">
-                  </form>
+                <h4><a href="" style="color:rgb(255, 255, 255)">Post a comment</a></h4>
+                <div class="container">
+                <form action="/article/<%= article.slug %>/post-comment" method="POST">
+                  
                   <br>
-                  <textarea rows="4" cols="50" name="comment" form="usrform">
-                    Enter your comment here...</textarea>
+                  <textarea rows="2" class="form-control" cols="50" name="usercomment" id="usercomment" placeholder="Please be respectful in the comment section."></textarea>
+                  <br>
+                  <% if (messages.error){ %>
+                    <div class="alert alert-danger" role="alert">
+                        <%= messages.error %> 
+                    </div>
+                    <% } %> 
+                    <button class="btn btn-info">Post Comment</button> 
+                </form>
+                </div>
                 </div>
                 <!--Comment section end-->
                 <!--Sidebar other reviews-->
-                        <div class="col-xl-3 col-lg-5 col-md-5 sidebar">
-                            <div id="stickySidebar">
-                                <div class="widget-item">
-                                    <h4 class="widget-title">Other Reviews</h4>
-                                    <div class="trending-widget">
-                                        <div class="tw-item">
-                                            <div class="tw-thumb">
-                                                <img src="images/dota2-mini.jpg" alt="#">
-                                            </div>
-                                            <div class="tw-text">
-                                                <div class="tw-meta">11.11.20  /  in <a href="">Games</a></div>
-                                                <h5>Is Dota 2 Dead?</h5>
-                                            </div>
-                                        </div>
-                                        <div class="tw-item">
-                                            <div class="tw-thumb">
-                                                <img src="images/valorant-mini.jpg" alt="#">
-                                            </div>
-                                            <div class="tw-text">
-                                                <div class="tw-meta">11.11.20  /  in <a href="">Games</a></div>
-                                                <h5>Valorant Fever Still Going Strong!</h5>
-                                            </div>
-                                        </div>
-                                        <div class="tw-item">
-                                            <div class="tw-thumb">
-                                                <img src="images/nba2k21-mini.png" alt="#">
-                                            </div>
-                                            <div class="tw-text">
-                                                <div class="tw-meta">11.11.18  /  in <a href="">Reviews</a></div>
-                                                <h5>NBA 2K21's Disgusting Microtransactions</h5>
-                                            </div>
-                                        </div>
-                                        <div class="tw-item">
-                                            <div class="tw-thumb">
-                                                <img src="images/THPS-mini.jpg" alt="#">
-                                            </div>
-                                            <div class="tw-text">
-                                                <div class="tw-meta">11.11.18  /  in <a href="">Games</a></div>
-                                            <h5>The Return of the King - Tony Hawk!</h5>
-                                        </div>
-                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <%- include('../partials/trending'); %>
                  <!--Sidebar other reviews END-->
                 </div>
             </div>
@@ -174,31 +101,13 @@
     <!--News Body Section End-->
      
     <!-- Footer section -->
-	<footer class="footer-section">
-		<div class="container">
-			<a href="#" class="footer-logo">
-				<img src="images/unplugged-logo.png" alt="">
-			</a>
-			<ul class="main-menu footer-menu">
-				<li><a href="hpsesudahlogin.html">Home</a></li>
-				<li><a href="games.html">Games</a></li>
-				<li><a href="reviewlist.html">Reviews</a></li>
-				<li><a href="newslist1.html">News</a></li>
-				<li><a href="staff.html">Contact</a></li>
-			</ul>
-		</div>
-	</footer>
+    <%- include('../partials/footer'); %>
+
 	<!-- Footer section end -->
 
 
     <!--====== Javascripts & Jquery ======-->
-	<script src="js/jquery-3.2.1.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/jquery.slicknav.min.js"></script>
-	<script src="js/owl.carousel.min.js"></script>
-	<script src="js/jquery.sticky-sidebar.min.js"></script>
-	<script src="js/jquery.magnific-popup.min.js"></script>
-	<script src="js/main.js"></script>
+    <%- include('../partials/script'); %>
 
 </body>
 </html>

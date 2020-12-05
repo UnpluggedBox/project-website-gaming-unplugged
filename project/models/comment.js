@@ -10,6 +10,11 @@ var CommentSchema = new mongoose.Schema({
   content: {
       type: String,
       required: [true, "can't be blank"]
+    },
+    articleid: {
+      type: mongoose.Schema.ObjectId,
+      ref: 'Article', 
+      required: [true, "can't be blank"]
     }
 
 }, {timestamps: true});

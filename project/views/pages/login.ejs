@@ -17,14 +17,13 @@
                         <label for="psw"><b>Password</b></label>
                         <br>
                         <input type="password" placeholder="Enter Password" name="password" id="password" required>
-                        <br>
-                        <span id="messagelogin"></span>
-                        <% if (messages.error){
-                            %>
-                            <%= messages.error %> 
+                        <br><br>
+                        <% if (messages.error){ %>
+                            <div class="alert alert-danger" role="alert">
+                                <%= messages.error %> 
+                            </div>
                             <% } %> 
-                            <% if (messages.info){
-                                %>
+                            <% if (messages.info){ %>
                                 <%= messages.info %> 
                                 <% } %> 
                             <% if (messages.success){

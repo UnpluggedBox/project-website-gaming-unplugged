@@ -14,6 +14,7 @@ require('dotenv').config();
 
 const routes = require('./routes/index');
 const users = require('./routes/user');
+const articles = require('./routes/article');
 const userid = require('./models/user');
 const articleid = require('./models/article');
 const e = require('express');
@@ -103,12 +104,13 @@ app.post('/register', async (req, res) => {
         const salt = await bcrypt.genSalt(10);
         user.password = await bcrypt.hash(user.password, salt);
         await user.save();
-        res.redirect('/');
+        res.redirect('/login');
   }
 });
 
 app.use('/', routes);
 app.use('/profile', users);
+app.use('/article', articles);
 
 
 app.listen(port, () => {
