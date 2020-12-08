@@ -1,15 +1,18 @@
 <html>
+    
     <%- include('../partials/head'); %>
     <%- include('../partials/header'); %>
     <style>
     .backgroundA {
+        background-size: cover;
+        background-repeat: no-repeat;
         background-image: url("data:image/<%= article.image.contentType %>;base64,<%= article.image.data.toString('base64') %>");
     }
     </style>
 <body>
 
     <!-- Intro section -->
-	    <section class="intro-news-section set-bg d-flex align-items-end backgroundA">
+	    <section class="intro-news-section d-flex align-items-end backgroundA">
             <div class="container">
                 <div class="news-text">
                     <h2><%= article.title %></h2>
@@ -20,8 +23,13 @@
             </div>
         </section>
     <!-- Intro section end -->
-    
+        <!-- <div class="container js-fillcolor" style="width: 1200px; background-color: aqua;" >
+            
+              <img width="200" height="200" src="data:image/<%= article.image.contentType %>;base64,<%= article.image.data.toString('base64') %>">
+    </div> -->
+            
     <!--News body section-->
+
     <section class="blog-section spad">
 		<div class="container">
 			<div class="row">
@@ -39,7 +47,7 @@
                             <div class="card-body">
                                 <a href="/article/<%= relatednews[i].slug %>"><h5 class="card-title"><%= relatednews[i].title %></h5></a>
                               <p class="card-text"><%= relatednews[i].summary %> </p>
-                              <p class="card-text"><small class="text-muted">Last Updated <%= article.updatedAt.toLocaleString() %></small></p>
+                              <p class="card-text"><small class="text-muted">Last Updated <%= relatednews[i].updatedAt.toLocaleString() %></small></p>
                             </div>
                         </div>
                         <% } %>
@@ -98,6 +106,7 @@
                 </div>
             </div>
      </section> 
+     
     <!--News Body Section End-->
      
     <!-- Footer section -->
@@ -108,6 +117,15 @@
 
     <!--====== Javascripts & Jquery ======-->
     <%- include('../partials/script'); %>
+    <!-- <script>
+        $( document ).ready(function () {
+            console.log( "tot" );
+            $('.js-fillcolor').fillColor();
+            console.log($('.js-fillcolor').getColor());
+        });
+    </script>
+
+    -->
 
 </body>
 </html>

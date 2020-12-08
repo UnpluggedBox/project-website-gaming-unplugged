@@ -14,11 +14,42 @@ router.use(express.json());
 
 router.get('/:slug', async (req, res) => {
     const article = await Article.findOne({ slug: req.params.slug })
-    const articlecategory = await Article.findOne({ slug: req.params.slug })
     const relatednews = await Article.find()
     const fullName = await User.findOne({"_id":{"$in":article["writer"]}});
     if (article == null) res.redirect('/')
 
+    Article.findOneAndUpdate(
+      {'slug': req.params.slug},
+      {$inc: {visitCount: 1}},
+      {safe: true, upsert: true, new : true},
+      function(err, model) {
+          console.log(err);
+      }
+    );
+
+
+    //   var fullName = []
+    //   db.collection('users').aggregate([
+    //     // Join with users table
+    //     { "$match": { "_id": article.writer } },
+    //     {
+    //         "$lookup":{
+    //             "from": "articles",       
+    //             "localField": "_id",  
+    //             "foreignField": "writer", 
+    //             "as": "fullName"         
+    //         }
+    //     },
+        
+    //     { "$replaceRoot": { "newRoot": { "$mergeObjects": [ { "$arrayElemAt": [ "$fullName", 0 ] }, "$$ROOT" ] } }      },
+    //     { "$project": { "fullName": 0 } }
+
+    // ]).toArray(async function(err, results) {
+    //   if (err) throw err;
+    //   fullName = results
+    //   console.log(fullName)
+    // });
+    
     var userNameCommentResult = []
     db.collection('comments').aggregate([
       // Join with users table
@@ -48,16 +79,15 @@ router.get('/:slug', async (req, res) => {
     userNameCommentResult = result
     console.log(userNameCommentResult)
 
-    if(articlecategory.category == 'News' && req.isAuthenticated()){
+    if(article.category == 'News' && req.isAuthenticated()){
         res.render('pages/viewarticlenews', {
           username: req.user.username,
           isLoggedIn: true,
           article: article,
-          comments: userNameCommentResult,
           fullName: fullName,
-          relatednews: relatednews,
+          comments: userNameCommentResult,
+          relatednews: relatednews
         });
-    
       } else if(req.isAuthenticated())   {
         res.render('pages/viewarticle', {
           username: req.user.username,
@@ -65,23 +95,22 @@ router.get('/:slug', async (req, res) => {
           article: article,
           fullName: fullName,
           comments: userNameCommentResult,
-          relatednews: relatednews,
+          relatednews: relatednews
         });
-      } else if(articlecategory.category == 'News') {
-          console.log(fullName)
-        res.render('pages/viewarticlenews', {
+      } else if(article.category == 'News') {
+          res.render('pages/viewarticlenews', {
           article: article,
           fullName: fullName,
           relatednews: relatednews,
           comments: userNameCommentResult,
-          isLoggedIn: false,
+          isLoggedIn: false
         });
       } else {
         res.render('pages/viewarticle', {
           article: article,
           fullName: fullName,
           comments: userNameCommentResult,
-          isLoggedIn: false,
+          isLoggedIn: false
         });
       }
   });

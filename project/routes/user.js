@@ -132,6 +132,7 @@ router.get('/:username/readlist', async (request, response) => {
           username: user.username,
           firstName: user.firstName,
           lastName: user.lastName,
+          role: user.role,
           article: docs,
           isLoggedIn: true, title: 'Unplugged Games' });
       } else {
@@ -197,9 +198,7 @@ router.post("/:username/upload", upload.single("image"), async (req, res) => {
             contentType: 'image/png'
         } 
         } 
-
        // console.log(req.body.content)
-
         article = new Article({
           title: req.body.title,
           writer: req.user.id,
@@ -211,7 +210,6 @@ router.post("/:username/upload", upload.single("image"), async (req, res) => {
         });
           await article.save();
           res.redirect(`/profile/${req.params.username}/article`);
-
     });
 
     router.post('/:username/article/:slug/edit', upload.single("image"), async (req, res) => {

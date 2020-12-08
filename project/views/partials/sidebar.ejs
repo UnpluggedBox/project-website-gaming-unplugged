@@ -8,6 +8,7 @@
                         </div>
             
                         <ul class="nav" style="display: block;">
+                            <% if (role == 'Admin') { %>
                             <li>
                                 <a href="/profile/<%= username %>/article">
                                     <i class="pe-7s-airplay"></i>
@@ -22,6 +23,7 @@
                                 </a>
                                 <hr style="background-color: cornsilk;">
                             </li>
+                            <% } %>
                             <li>
                                 <a href="/profile/<%= username %>">
                                     <i class="pe-7s-user"></i>
