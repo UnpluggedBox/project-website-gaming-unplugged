@@ -54,11 +54,15 @@
 							<img src="data:image/<%= article.image.contentType %>;base64,<%= article.image.data.toString('base64') %>" alt="" style="height: 325; width: 345;">
 						</div>
 						<div class="blog-text text-box text-white">
+							<% if (article.category == 'News') { %>
+							<div class="top-meta"><label><%= article.updatedAt.toLocaleString() %> | <a href="/newslist"><%= article.category %></a></div>
+							<% } else { %>
 							<div class="top-meta"><label><%= article.updatedAt.toLocaleString() %> | <a href="/reviewlist"><%= article.category %></a></div>
+							<% } %>
 							<h3><%= article.title %></h3>
 							<p style="color:#ffffff"><%= article.summary %><b></b>
                             </p>
-							<a href="/article/<%= article.slug %>" class="read-more">Read More  <img src="images/icons/double-arrow.png" alt="#"/></a>
+							<a href="/article/<%= article.slug %>" class="read-more">Read More <img src="images/icons/double-arrow.png" alt="#"/></a>
 						</div>
 					</div>
 					<% }) %>

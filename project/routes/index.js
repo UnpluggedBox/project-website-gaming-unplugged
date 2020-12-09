@@ -8,6 +8,7 @@ const e = require('express');
 router.use(express.json());
 
 router.get('/games', async (request, response) => {
+  const trendingarticles = await Article.find().sort({visitCount: -1}).limit(4)
   let articles
   if(request.query.search) {
     await Article.find({"title":{'$regex':request.query.search,"$options":"i"}},function(err, result){
@@ -20,37 +21,41 @@ router.get('/games', async (request, response) => {
   }
   
   if(request.isAuthenticated()){
-    response.render('pages/games', { username: request.user.username, article: articles, isLoggedIn: true, title: 'Unplugged Games' });
+    response.render('pages/games', { username: request.user.username, article: articles, isLoggedIn: true, trending: trendingarticles, title: 'Unplugged Games' });
 
   } else {
-    response.render('pages/games', { isLoggedIn: false, article: articles, title: 'Unplugged Games' });
+    response.render('pages/games', { isLoggedIn: false, article: articles, trending: trendingarticles, title: 'Unplugged Games' });
   }
 });
 
-router.get('/reviewlist', (request, response) => {
+router.get('/reviewlist', async (request, response) => {
+  const trendingarticles = await Article.find().sort({visitCount: -1}).limit(4)
   if(request.isAuthenticated()){
-    response.render('pages/reviewlist', { username: request.user.username, isLoggedIn: true, title: 'Unplugged Games' });
+    response.render('pages/reviewlist', { username: request.user.username, trending: trendingarticles, isLoggedIn: true, title: 'Unplugged Games' });
 
   } else {
-    response.render('pages/reviewlist', { isLoggedIn: false, title: 'Unplugged Games' });
+    response.render('pages/reviewlist', { isLoggedIn: false, trending: trendingarticles, title: 'Unplugged Games' });
   }
 });
 
-router.get('/newslist', (request, response) => {
+router.get('/newslist', async (request, response) => {
+  const trendingarticles = await Article.find().sort({visitCount: -1}).limit(4)
+
   if(request.isAuthenticated()){
-    response.render('pages/newslist', { username: request.user.username, isLoggedIn: true, title: 'Unplugged Games' });
+    response.render('pages/newslist', { username: request.user.username, trending: trendingarticles, isLoggedIn: true, title: 'Unplugged Games' });
 
   } else {
-    response.render('pages/newslist', { isLoggedIn: false, title: 'Unplugged Games' });
+    response.render('pages/newslist', { isLoggedIn: false, trending: trendingarticles, title: 'Unplugged Games' });
   }
 });
 
-router.get('/staff', (request, response) => {
+router.get('/staff', async (request, response) => {
+  const trendingarticles = await Article.find().sort({visitCount: -1}).limit(4)
   if(request.isAuthenticated()){
-    response.render('pages/staff', { username: request.user.username, isLoggedIn: true, title: 'Unplugged Games' });
+    response.render('pages/staff', { username: request.user.username, trending: trendingarticles, isLoggedIn: true, title: 'Unplugged Games' });
 
   } else {
-    response.render('pages/staff', { isLoggedIn: false, title: 'Unplugged Games' });
+    response.render('pages/staff', { isLoggedIn: false, trending: trendingarticles, title: 'Unplugged Games' });
   }
 });
 

@@ -1,45 +1,26 @@
+
 <div class="col-xl-3 col-lg-4 col-md-5 sidebar">
     <div id="stickySidebar">
         <div class="widget-item">
             <h4 class="widget-title">Trending</h4>
             <div class="trending-widget">
+                <% trending.forEach(trending => { %>
                 <div class="tw-item">
                     <div class="tw-thumb">
-                        <img src="/images/dota2-mini.jpg" alt="#">
+                        <img style="width: 80px; height: 80px;" src="data:image/<%= trending.image.contentType %>;base64,<%= trending.image.data.toString('base64') %>" alt="#">
                     </div>
                     <div class="tw-text">
-                        <div class="tw-meta">11.11.20  /  in <a href="">Games</a></div>
-                        <h5>Is Dota 2 Dead?</h5>
+                            <% if (trending.category == 'News') { %>
+                            <div class="tw-meta"><%= trending.updatedAt.toLocaleString() %>  /  in <a href="/newslist"><%= trending.category %></a></div>
+							<% } else { %>
+                            <div class="tw-meta"><%= trending.updatedAt.toLocaleString() %>  /  in <a href="/reviewlist"><%= trending.category %></a></div>
+                            <% } %>
+                        <h5 style="overflow: hidden; display: -webkit-box;-webkit-line-clamp: 3; -webkit-box-orient: vertical;"><a href="/article/<%= trending.slug %>"><%= trending.title %></a></h5>
                     </div>
                 </div>
-                <div class="tw-item">
-                    <div class="tw-thumb">
-                        <img src="/images/valorant-mini.jpg" alt="#">
-                    </div>
-                    <div class="tw-text">
-                        <div class="tw-meta">11.11.20  /  in <a href="">Games</a></div>
-                        <h5>Valorant Fever Still Going Strong!</h5>
-                    </div>
-                </div>
-                <div class="tw-item">
-                    <div class="tw-thumb">
-                        <img src="/images/nba2k21-mini.png" alt="#">
-                    </div>
-                    <div class="tw-text">
-                        <div class="tw-meta">11.11.18  /  in <a href="">Reviews</a></div>
-                        <h5>NBA 2K21's Disgusting Microtransactions</h5>
-                    </div>
-                </div>
-                <div class="tw-item">
-                    <div class="tw-thumb">
-                        <img src="/images/THPS-mini.jpg" alt="#">
-                    </div>
-                    <div class="tw-text">
-                        <div class="tw-meta">11.11.18  /  in <a href="">Games</a></div>
-                        <h5>The Return of the King - Tony Hawk!</h5>
-                    </div>
+                <% }) %>
                 </div>
             </div>
         </div>
     </div>
-</div>
+

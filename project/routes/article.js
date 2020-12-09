@@ -16,6 +16,7 @@ router.get('/:slug', async (req, res) => {
     const article = await Article.findOne({ slug: req.params.slug })
     const relatednews = await Article.find()
     const fullName = await User.findOne({"_id":{"$in":article["writer"]}});
+    const trendingarticles = await Article.find().sort({visitCount: -1}).limit(4)
     if (article == null) res.redirect('/')
 
     Article.findOneAndUpdate(
@@ -23,32 +24,9 @@ router.get('/:slug', async (req, res) => {
       {$inc: {visitCount: 1}},
       {safe: true, upsert: true, new : true},
       function(err, model) {
-          console.log(err);
+          
       }
     );
-
-
-    //   var fullName = []
-    //   db.collection('users').aggregate([
-    //     // Join with users table
-    //     { "$match": { "_id": article.writer } },
-    //     {
-    //         "$lookup":{
-    //             "from": "articles",       
-    //             "localField": "_id",  
-    //             "foreignField": "writer", 
-    //             "as": "fullName"         
-    //         }
-    //     },
-        
-    //     { "$replaceRoot": { "newRoot": { "$mergeObjects": [ { "$arrayElemAt": [ "$fullName", 0 ] }, "$$ROOT" ] } }      },
-    //     { "$project": { "fullName": 0 } }
-
-    // ]).toArray(async function(err, results) {
-    //   if (err) throw err;
-    //   fullName = results
-    //   console.log(fullName)
-    // });
     
     var userNameCommentResult = []
     db.collection('comments').aggregate([
@@ -86,7 +64,8 @@ router.get('/:slug', async (req, res) => {
           article: article,
           fullName: fullName,
           comments: userNameCommentResult,
-          relatednews: relatednews
+          relatednews: relatednews,
+          trending: trendingarticles
         });
       } else if(req.isAuthenticated())   {
         res.render('pages/viewarticle', {
@@ -95,7 +74,8 @@ router.get('/:slug', async (req, res) => {
           article: article,
           fullName: fullName,
           comments: userNameCommentResult,
-          relatednews: relatednews
+          relatednews: relatednews,
+          trending: trendingarticles
         });
       } else if(article.category == 'News') {
           res.render('pages/viewarticlenews', {
@@ -103,14 +83,16 @@ router.get('/:slug', async (req, res) => {
           fullName: fullName,
           relatednews: relatednews,
           comments: userNameCommentResult,
-          isLoggedIn: false
+          isLoggedIn: false,
+          trending: trendingarticles
         });
       } else {
         res.render('pages/viewarticle', {
           article: article,
           fullName: fullName,
           comments: userNameCommentResult,
-          isLoggedIn: false
+          isLoggedIn: false,
+          trending: trendingarticles
         });
       }
   });
@@ -129,8 +111,6 @@ router.get('/:slug', async (req, res) => {
             articleid: article._id
         });
         await comment.save();
-
-        console.log(req.body.usercomment)
 
         Article.findOneAndUpdate(
             {'slug': req.params.slug},

@@ -47,16 +47,18 @@ app.use(passport.session());
 
 app.get('/', async (request, response) => {
   const article = await articleid.find()
+  const trendingarticles = await articleid.find().sort({visitCount: -1}).limit(4)
   if(request.isAuthenticated()){
     const user = await userid.findOne({_id: request.user.id})
     console.log(user)
     response.render('pages/homepage', { 
       username: user.username,
-      isLoggedIn: true, 
+      isLoggedIn: true,
+      trending: trendingarticles, 
       article: article, title: "Unplugged Games" });
 
   } else {
-    response.render('pages/homepage', { isLoggedIn: false, article: article, title: 'Unplugged Games' });
+    response.render('pages/homepage', { isLoggedIn: false, article: article, trending: trendingarticles, title: 'Unplugged Games' });
   }
 });
 
@@ -117,9 +119,11 @@ app.listen(port, () => {
   console.log(`express server listening on port ${port}! `);
 });
 
-mongoose.connect('mongodb://127.0.0.1:27017/db-unplugged-gaming', {useUnifiedTopology: true,
+mongoose.connect('mongodb://127.0.0.1:27017/db-unplugged-gaming', {
+  useUnifiedTopology: true,
   useNewUrlParser:true,
-  useCreateIndex:true
+  useCreateIndex:true,
+  useFindAndModify:true
 });
 const db = mongoose.connection;
 
