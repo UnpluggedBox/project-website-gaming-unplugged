@@ -55,6 +55,12 @@ router.get('/:slug', async (req, res) => {
     console.log(userNameCommentResult)
 
     if(article.category == 'News' && req.isAuthenticated()){
+      const userid = await User.findOne({ _id: req.user.id })
+      db.collection('users').updateOne(
+        {_id: userid._id},
+        {$addToSet: {history: article._id}},
+        {safe: true, upsert: true, new : true}
+        );
         res.render('pages/viewarticlenews', {
           username: req.user.username,
           isLoggedIn: true,
@@ -65,6 +71,12 @@ router.get('/:slug', async (req, res) => {
           trending: trendingarticles
         });
       } else if(req.isAuthenticated())   {
+        const userid = await User.findOne({ _id: req.user.id })
+        db.collection('users').updateOne(
+          {_id: userid._id},
+          {$addToSet: {history: article._id}},
+          {safe: true, upsert: true, new : true}
+          );
         res.render('pages/viewarticle', {
           username: req.user.username,
           isLoggedIn: true,

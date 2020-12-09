@@ -1,3 +1,4 @@
+const { ObjectID, ObjectId } = require('mongodb');
 var mongoose = require('mongoose');
 
 var UserSchema = new mongoose.Schema({
@@ -25,7 +26,10 @@ var UserSchema = new mongoose.Schema({
   firstName: String,
   lastName: String,
   genre: String,
-  history: Number,
+  history: [{
+    type: mongoose.Schema.ObjectId,
+    ref: 'Article',
+  }],
   role: {
       type: String,
       required: true,

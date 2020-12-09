@@ -24,7 +24,7 @@
                                     <div class="card">
                                         <div class="header">
                                             <h4 class="title">News and Review Read History</h4>
-                                            <p class="category">Recently read articles</p>
+                                            <p class="category">Articles you've read</p>
                                         </div>
                                         <div class="content table-responsive table-full-width">
                                             <table class="table table-hover table-striped">
@@ -35,36 +35,15 @@
                                                     <th>Category</th>
                                                 </thead>
                                                 <tbody>
+                                                    <% i = 0 %>
+                                                    <% historyResult.forEach(historyResult => { %>
                                                     <tr>
-                                                        <td>1</td>
-                                                        <td>Microsoft Unveils the XBOX Series S at $299</td>
-                                                        <td>Rubin Salim</td>
-                                                        <td>News</td>
+                                                        <td><%= i = i + 1 %></td>
+                                                        <td><%= historyResult.title %></td>
+                                                        <td><%= historyResult.firstName %> <%= historyResult.lastName %></td>
+                                                        <td><%= historyResult.category %></td>
                                                     </tr>
-                                                    <tr>
-                                                        <td>2</td>
-                                                        <td>'Minecraft' characters come to 'Super Smash Bros. Ultimate' on October 13th</td>
-                                                        <td>Jecky Afrianto</td>
-                                                        <td>News</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>3</td>
-                                                        <td>Xenoblade Chronicles: Future Connected - How Does It Compare to It's Predecessor?</td>
-                                                        <td>Henry Tanujaya</td>
-                                                        <td>Review</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>4</td>
-                                                        <td>FIFA 21 review: A fresher take on the series</td>
-                                                        <td>Charly Julio Aristama</td>
-                                                        <td>Review</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>5</td>
-                                                        <td>Fall Guys Games Review: Easy and fun battle royale games </td>
-                                                        <td>Prinzky Lukito</td>
-                                                        <td>Review</td>
-                                                    </tr>
+                                                    <% }) %>
                                                 </tbody>
                                             </table>
                                         </div>

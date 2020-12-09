@@ -7,87 +7,38 @@
 			<div class="row">
 				<div class="col-xl-9 col-lg-8 col-md-7">
 					<div class="section-title text-white">
-					<br></br>
+					<br><br>
 						<h2>Latest News</h2>
 					</div>
-					<br>
-					<div style="margin-bottom: -60px; margin-top: -30px;">
-						<ul class="blog-filter">
-							<li><a href="newslist1.html">News</a></li>
-							<li><a href="reviewlist.html">Reviews</a></li>
-							<li><a href="#">JRPG</a></li>
-							<li><a href="#">MMORPG</a></li>
-						</ul>
-					</div>
-                    <!-- Blog item -->
-					<div class="blog-item">
-						<div class="blog-thumb">
-							<img src="images/xsx.jpg" alt="" style="height: 325">
-						</div>
-						<div class="blog-text text-box text-white">
-							<div class="top-meta">09 - 9 - 2020 </div>
-							<h3>Microsoft Unveils the XBOX Series S at $299</h3>
-							<p style="color:#ffffff"><b>Xbox Series S delivers the same next generation speed and performance that define Xbox Series X.
-                                It is similar in CPU and has the identical I/O performance as Xbox Series X, 
-                                making it easier for developers to deliver the same great performance, while rendering at a lower resolution.</b>
-                            </p>
-							<a href="news.html" class="read-more">Read More  <img src="images/icons/double-arrow.png" alt="#"/></a>
-						</div>
-					</div>
-                    <!-- Blog item -->
-                    
-					<!-- Blog item -->
-					<div class="blog-item">
-						<div class="blog-thumb">
-							<img src="images/ps5.jpg" alt="" style="height: 325">
-						</div>
-						<div class="blog-text text-box text-white">
-							<div class="top-meta">20 - 8 - 2020 </div>
-							<h3>Sony Reveals Latest PS5 Details</h3>
-							<p style="color:#ffffff"><b>The PlayStation 5 is an upcoming home video game console developed by Sony Interactive Entertainment. 
-                                Announced in 2019 as the successor to the PlayStation 4, it is scheduled to launch in late 2020.</b></p>
-							<a href="news.html" class="read-more">Read More<img src="images/icons/double-arrow.png" alt=""/></a>
-						</div>
-                    </div>
-                    <!-- Blog item -->
 
                     <!-- Blog item -->
-					<div class="blog-item">
-						<div class="blog-thumb">
-							<img src="images/bloodb.jpg" alt="" style="height: 325">
+					<% article.forEach(article => { %>
+						<div class="blog-item">
+							<div class="blog-thumb">
+								<img src="data:image/<%= article.image.contentType %>;base64,<%= article.image.data.toString('base64') %>" alt="" style="height: 325; width: 345;">
+							</div>
+							<div class="blog-text text-box text-white">
+								<% if (article.category == 'News') { %>
+								<div class="top-meta"><label><%= article.createdAt.toLocaleString() %> | <a href="/newslist"><%= article.category %></a></div>
+								<% } else { %>
+								<div class="top-meta"><label><%= article.createdAt.toLocaleString() %> | <a href="/reviewlist"><%= article.category %></a></div>
+								<% } %>
+								<h3 style="overflow: hidden; display: -webkit-box;-webkit-line-clamp: 3; -webkit-box-orient: vertical;"><%= article.title %></h3>
+								<p style="overflow: hidden; display: -webkit-box;-webkit-line-clamp: 2; -webkit-box-orient: vertical; color: rgb(255, 255, 255);"><%= article.summary %><b></b>
+								</p>
+								<a href="/article/<%= article.slug %>" class="read-more">Read More <img src="images/icons/double-arrow.png" alt="#"/></a>
+							</div>
 						</div>
-						<div class="blog-text text-box text-white">
-							<div class="top-meta">04 - 10 - 2020 </div>
-							<h3>PlayStation Plus Seemed To Add Surprise Free Game</h3>
-							<p style="color:#ffffff"><b>PlayStation Plus's free games for October 2020 are racing game Need for Speed Payback and action-RPG Vampyr. 
-                            However, seemingly out of nowhere, Bloodborne has also been made free for PS Plus subscribers. It's unclear if this is a mistake, 
-                            as Sony did not announce the From Software action game as one of this month's free offerings. 
-                            You'll want to claim this as soon as possible, as it could be an error and fixed shortly.</b></p>
-							<a href="#" class="read-more">Read More  <img src="images/icons/double-arrow.png" alt="#"/></a>
-						</div>
-                    </div>
-                    <!-- Blog item -->
-
-                    <!-- Blog item -->
-					<div class="blog-item">
-						<div class="blog-thumb">
-							<img src="images/smashmi.jpg" alt="" style="height: 325">
-						</div>
-						<div class="blog-text text-box text-white">
-							<div class="top-meta">03 - 10 - 2020 </div>
-							<h3>'Minecraft' characters come to 'Super Smash Bros. Ultimate' on October 13th</h3>
-							<p style="color:#ffffff"><b>You won’t have to wait too long to play as a Minecraft character in Super Smash Bros. Ultimate. Microsoft, 
-                            Mojang and Nintendo have followed up their teaser by confirming that Steve and Alex will be available for SSBU brawling on October 13th as part of the Ultimate Fighters Pass Vol.
-                            2 collection. As promised, you’ll also see a Minecraft-themed stage and seven music additions.</b></p>
-							<a href="#" class="read-more">Read More  <img src="images/icons/double-arrow.png" alt="#"/></a>
-						</div>
+						<% }) %>
+						<!-- Blog item -->
+						
 					<!-- Next Page -->
 					<br><br><br><br><br>
 					<button onclick="window.location.href='newslist2.html'" class="previously-page" style="color:white;background-color:purple;">Next Page
 				    <img src="images/icons/double-arrow.png" alt="" style="height: 14px;margin-left:14px">
 					</button>
 					</div>
-				</div>
+				
 				<%- include('../partials/trending'); %>
 			</div>
 	          </section>

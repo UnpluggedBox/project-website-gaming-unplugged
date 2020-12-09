@@ -5,8 +5,10 @@ var fs = require('fs');
 var path = require('path'); 
 const User = require('../models/user');
 const Article = require('../models/article');
+const Carousel = require('../models/carousel')
 const router = express.Router();
 const mongoose = require('mongoose');
+const user = require('../models/user');
 const db = mongoose.connection;
 var storage = multer.diskStorage({
     destination: function(req, file, cb) {
@@ -37,10 +39,12 @@ router.get('/:username', async (request, response) => {
   }
 });
 
-router.get('/:username/readlist', async (request, response) => {
+router.get('/:username/carousel', async (request, response) => {
   if(request.isAuthenticated()){
+    const article = await Article.find()
+    const carousel = await Carousel.find()
     const user = await User.findOne({_id: request.user.id})
-    response.render('pages/readlist', { 
+    response.render('pages/carousel', { 
       username: user.username,
       email: user.email,
       bio: user.bio,
@@ -50,10 +54,66 @@ router.get('/:username/readlist', async (request, response) => {
       genre: user.genre,
       history: user.history,
       role: user.role,
+      article: article,
+      carousel: carousel,
       isLoggedIn: true, title: 'Unplugged Games' });
   } else {
-    response.render('pages/profile', { title: 'Unplugged Games' });
+    response.render('pages/carousel', { isLoggedIn: false, title: 'Unplugged Games' });
   }
+});
+
+router.get('/:username/readlist', async (request, response) => {
+    const userid = await User.findOne({ _id: request.user.id })
+    var historyResult = []
+    db.collection('articles').aggregate([
+      // Join with users table
+      // { "$addFields": { "writerName": { $concat: [ "$firstName", "$lastName" ] }}},
+      { "$match": { "_id":{"$in":userid["history"]}} },
+      {
+          "$lookup":{
+              "from": "users",       
+              "localField": "_id",  
+              "foreignField": "history", 
+              "as": "historyOutput"         
+          }
+      },
+      {
+        "$lookup":{
+            "from": "users",       
+            "localField": "writer",  
+            "foreignField": "_id", 
+            "as": "historyOutput"         
+        }
+      },
+      {"$sort": { "updatedAt" : -1} },
+      { "$replaceRoot": { "newRoot": { "$mergeObjects": [ { "$arrayElemAt": [ "$historyOutput", 0 ] }, "$$ROOT" ] } }      },
+      { "$project": { "historyOutput": 0 } }
+
+  ]).toArray(async function(err, result) {
+    if (err) throw err;
+    historyResult = result;
+    console.log('===============================')
+    console.log(historyResult)
+
+    if(request.isAuthenticated()){
+      const user = await User.findOne({_id: request.user.id})
+      response.render('pages/readlist', { 
+        username: user.username,
+        email: user.email,
+        bio: user.bio,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        image: user.image,
+        genre: user.genre,
+        historyResult: historyResult,
+        role: user.role,
+        isLoggedIn: true, title: 'Unplugged Games' });
+    } else {
+      response.render('pages/profile', { title: 'Unplugged Games' });
+    }
+  });
+
+
   });
 
   router.get('/:username/article', async (request, response) => {
@@ -116,7 +176,6 @@ router.get('/:username/readlist', async (request, response) => {
       response.render('pages/profile', { title: 'Unplugged Games' });
     }
 
-    console.log(fullNameResult)
     // response.send(fullNameResult)
     // res.render('pages/articlelist', {fullName: fullNameResult});
     });
@@ -241,5 +300,48 @@ router.post("/:username/upload", upload.single("image"), async (req, res) => {
      }
   });
 
+  router.post('/:username/article/:slug/delete', async (req, res) => {
+    const docs = await User.findOne({username:req.params.username})
+          docs.username = req.params.username; 
+          db.collection('articles').deleteOne(
+            {slug: req.params.slug},
+            );
+          res.redirect(`/profile/${req.params.username}/articlelist`);
+    });
+
+  router.post('/:username/carousel/post', upload.single("image"), async (req, res) => {
+    let carousel = await Carousel.find()
+    const docs = await User.findOne({username:req.params.username})
+          docs.username = req.params.username; 
+          if (req.body.filename == undefined) {
+            // req.flash('error', 'No picture selected!');
+            res.redirect(`/profile/${req.params.username}`);
+          }
+  
+      var obj = { 
+        img: { 
+            data: fs.readFileSync(path.join(__dirname + '/../uploads/' + req.file.filename)), 
+            contentType: 'image/png'
+        } 
+        } 
+       // console.log(req.body.content)
+        carousel = new Carousel({
+          title: req.body.title,
+          summary: req.body.summary,
+          image: obj.img
+        });
+        
+          await carousel.save();
+          res.redirect(`/profile/${req.params.username}/carousel`);
+    });
+
+    router.post('/:username/carousel/:slug/delete', async (req, res) => {
+      const docs = await User.findOne({username:req.params.username})
+            docs.username = req.params.username; 
+            db.collection('carousels').deleteOne(
+              {slug: req.params.slug},
+              );
+            res.redirect(`/profile/${req.params.username}/carousel`);
+      });
 
 module.exports = router;

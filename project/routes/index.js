@@ -30,22 +30,23 @@ router.get('/games', async (request, response) => {
 
 router.get('/reviewlist', async (request, response) => {
   const trendingarticles = await Article.find().sort({visitCount: -1}).limit(4)
+  const articles = await Article.find({ category: 'Review'}).sort({createdAt: -1}).limit(6)
   if(request.isAuthenticated()){
-    response.render('pages/reviewlist', { username: request.user.username, trending: trendingarticles, isLoggedIn: true, title: 'Unplugged Games' });
+    response.render('pages/reviewlist', { username: request.user.username, trending: trendingarticles, article: articles, isLoggedIn: true, title: 'Unplugged Games' });
 
   } else {
-    response.render('pages/reviewlist', { isLoggedIn: false, trending: trendingarticles, title: 'Unplugged Games' });
+    response.render('pages/reviewlist', { isLoggedIn: false, trending: trendingarticles, article: articles, title: 'Unplugged Games' });
   }
 });
 
 router.get('/newslist', async (request, response) => {
   const trendingarticles = await Article.find().sort({visitCount: -1}).limit(4)
-
+  const articles = await Article.find({ category: 'News'}).sort({createdAt: -1}).limit(6)
   if(request.isAuthenticated()){
-    response.render('pages/newslist', { username: request.user.username, trending: trendingarticles, isLoggedIn: true, title: 'Unplugged Games' });
+    response.render('pages/newslist', { username: request.user.username, trending: trendingarticles, article: articles, isLoggedIn: true, title: 'Unplugged Games' });
 
   } else {
-    response.render('pages/newslist', { isLoggedIn: false, trending: trendingarticles, title: 'Unplugged Games' });
+    response.render('pages/newslist', { isLoggedIn: false, trending: trendingarticles, article: articles, title: 'Unplugged Games' });
   }
 });
 

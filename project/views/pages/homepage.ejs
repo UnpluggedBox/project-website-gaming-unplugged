@@ -6,27 +6,15 @@
 	<!-- Hero/Top/Carousel section -->
 	<section class="hero-section overflow-hidden">
 		<div class="hero-slider owl-carousel">
-			<div class="hero-item set-bg d-flex align-items-center justify-content-center text-center" data-setbg="images/shadowbringers-1.jpg">
-				<div class="container">
-					<h2>Best Games of 2020</h2>
-					<p><br><br><br><br></p>
-					<a href="review.html" class="site-btn">Read More  <img src="images/double-arrow.png" alt="#"/></a>
+			<% carousel.forEach(carousel => { %>
+				<div class="hero-item set-bg d-flex align-items-center justify-content-center text-center" data-setbg="data:image/<%= carousel.image.contentType %>;base64,<%= carousel.image.data.toString('base64') %>">
+					<div class="container">
+						<h2><%= carousel.summary %></h2>
+						<p></p>
+						<a href="/article/<%= carousel.slug %>" class="site-btn">Read More  <img src="/images/double-arrow.png" alt="#"/></a> 
+					</div>
 				</div>
-			</div>
-			<div class="hero-item set-bg d-flex align-items-center justify-content-center text-center" data-setbg="images/shadowbringers-wallpaper.png">
-				<div class="container">
-					<h2><br><br><br></h2>
-					<p></p>
-					<a href="review.html" class="site-btn">Read More  <img src="images/double-arrow.png" alt="#"/></a>
-				</div>
-            </div>
-            <div class="hero-item set-bg d-flex align-items-center justify-content-center text-center" data-setbg="images/ghost-wall.png">
-				<div class="container">
-					<h2><br><br><br></h2>
-					<p></p>
-					<a href="review.html" class="site-btn">Read More  <img src="images/double-arrow.png" alt="#"/></a>
-				</div>
-			</div>
+			<% }) %>
 		</div>
 	</section>
     <!-- Hero section end-->

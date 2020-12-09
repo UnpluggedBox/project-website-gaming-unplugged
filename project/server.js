@@ -17,6 +17,7 @@ const users = require('./routes/user');
 const articles = require('./routes/article');
 const userid = require('./models/user');
 const articleid = require('./models/article');
+const Carousel = require('./models/carousel');
 const e = require('express');
 const app = express();
 var storage = multer.diskStorage({
@@ -48,16 +49,18 @@ app.use(passport.session());
 app.get('/', async (request, response) => {
   const article = await articleid.find().sort({createdAt: -1}).limit(4)
   const trendingarticles = await articleid.find().sort({visitCount: -1}).limit(4)
+  const carousel = await Carousel.find()
   if(request.isAuthenticated()){
     const user = await userid.findOne({_id: request.user.id})
     console.log(user)
     response.render('pages/homepage', { 
       username: user.username,
       isLoggedIn: true,
-      trending: trendingarticles, 
+      trending: trendingarticles,
+      carousel: carousel, 
       article: article, title: "Unplugged Games" });
   } else {
-    response.render('pages/homepage', { isLoggedIn: false, article: article, trending: trendingarticles, title: 'Unplugged Games' });
+    response.render('pages/homepage', { isLoggedIn: false, article: article, carousel: carousel,  trending: trendingarticles, title: 'Unplugged Games' });
   }
 });
 
