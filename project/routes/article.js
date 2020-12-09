@@ -14,7 +14,8 @@ router.use(express.json());
 
 router.get('/:slug', async (req, res) => {
     const article = await Article.findOne({ slug: req.params.slug })
-    const relatednews = await Article.find()
+    const relatednews = await Article.find({ category: 'News'});
+    const relatedreview = await Article.find({ category: 'Review'});
     const fullName = await User.findOne({"_id":{"$in":article["writer"]}});
     const trendingarticles = await Article.find().sort({visitCount: -1}).limit(4)
     if (article == null) res.redirect('/')
@@ -70,7 +71,7 @@ router.get('/:slug', async (req, res) => {
           article: article,
           fullName: fullName,
           comments: userNameCommentResult,
-          relatednews: relatednews,
+          relatedreview: relatedreview, 
           trending: trendingarticles
         });
       } else if(article.category == 'News') {
@@ -88,6 +89,7 @@ router.get('/:slug', async (req, res) => {
           fullName: fullName,
           comments: userNameCommentResult,
           isLoggedIn: false,
+          relatedreview: relatedreview, 
           trending: trendingarticles
         });
       }
