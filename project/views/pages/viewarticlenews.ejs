@@ -7,6 +7,7 @@
         background-size: cover;
         background-repeat: no-repeat;
         background-image: url("data:image/<%= article.image.contentType %>;base64,<%= article.image.data.toString('base64') %>");
+	    background-position: top center;
     }
     </style>
 <body>
@@ -35,26 +36,27 @@
 			<div class="row">
                 <div class="col-xl-9 col-lg-8 col-md-7">
                 <!--News content-->
+                
                 <%- article.content %>
                 
                 <hr class="border-bottom">
                 <h4><a href="" style="color:rgb(255, 255, 255)">Related News</a><u></u> </h4><br>               
                 <!--Card Group-->
                 <div class="card-deck">
-                    <% for(var i=0; i < 3; i++) { %>
+                    <% relatednews.forEach(relatednews => { %>
                         <div class="card">
-                            <a href="/article/<%= relatednews[i].slug %>"><img src="data:image/<%= relatednews[i].image.contentType %>;base64,<%= relatednews[i].image.data.toString('base64') %>" class="card-img-top" alt="..." height="160px"></a>
+                            <a href="/article/<%= relatednews.slug %>"><img src="data:image/<%= relatednews.image.contentType %>;base64,<%= relatednews.image.data.toString('base64') %>" class="card-img-top" alt="..." height="160px"></a>
                             <div class="card-body">
-                                <a href="/article/<%= relatednews[i].slug %>"><h5 class="card-title"><%= relatednews[i].title %></h5></a>
-                              <p class="card-text"><%= relatednews[i].summary %> </p>
-                              <p class="card-text"><small class="text-muted">Last Updated <%= relatednews[i].updatedAt.toLocaleString() %></small></p>
+                                <a href="/article/<%= relatednews.slug %>"><h5 class="card-title"><%= relatednews.title %></h5></a>
+                              <p class="card-text" style="color: #585858; overflow: hidden; display: -webkit-box;-webkit-line-clamp: 3; -webkit-box-orient: vertical;"><%= relatednews.summary %> </p>
+                              <p class="card-text"><small class="text-muted">Last Updated <%= relatednews.updatedAt.toLocaleString() %></small></p>
                             </div>
                         </div>
-                        <% } %>
+                        <% }) %>
                 </div>
                 <hr class="border-bottom">
                 <!--Comments section-->
-                <h4><a href="" style="color:rgb(255, 255, 255)">Comments</a><u></u> </h4><br>
+                <h4><a href="/newslist" style="color:rgb(255, 255, 255)">Comments</a><u></u> </h4><br>
                 <!--Posted Comments-->
                 <div class="container">
                     <% comments.forEach(comments => { %>

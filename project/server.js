@@ -46,7 +46,7 @@ app.use(passport.session());
 
 
 app.get('/', async (request, response) => {
-  const article = await articleid.find()
+  const article = await articleid.find().sort({createdAt: -1}).limit(4)
   const trendingarticles = await articleid.find().sort({visitCount: -1}).limit(4)
   if(request.isAuthenticated()){
     const user = await userid.findOne({_id: request.user.id})
@@ -56,7 +56,6 @@ app.get('/', async (request, response) => {
       isLoggedIn: true,
       trending: trendingarticles, 
       article: article, title: "Unplugged Games" });
-
   } else {
     response.render('pages/homepage', { isLoggedIn: false, article: article, trending: trendingarticles, title: 'Unplugged Games' });
   }

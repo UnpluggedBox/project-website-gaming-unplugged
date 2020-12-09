@@ -59,8 +59,8 @@
 							<% } else { %>
 							<div class="top-meta"><label><%= article.createdAt.toLocaleString() %> | <a href="/reviewlist"><%= article.category %></a></div>
 							<% } %>
-							<h3><%= article.title %></h3>
-							<p style="color:#ffffff"><%= article.summary %><b></b>
+							<h3 style="overflow: hidden; display: -webkit-box;-webkit-line-clamp: 3; -webkit-box-orient: vertical;"><%= article.title %></h3>
+							<p style="overflow: hidden; display: -webkit-box;-webkit-line-clamp: 2; -webkit-box-orient: vertical; color: rgb(255, 255, 255);"><%= article.summary %><b></b>
                             </p>
 							<a href="/article/<%= article.slug %>" class="read-more">Read More <img src="images/icons/double-arrow.png" alt="#"/></a>
 						</div>

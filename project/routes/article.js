@@ -14,8 +14,8 @@ router.use(express.json());
 
 router.get('/:slug', async (req, res) => {
     const article = await Article.findOne({ slug: req.params.slug })
-    const relatednews = await Article.find({ category: 'News'});
-    const relatedreview = await Article.find({ category: 'Review'});
+    const relatednews = await Article.find({ category: 'News'}).limit(3);
+    const relatedreview = await Article.find({ category: 'Review'}).limit(3);
     const fullName = await User.findOne({"_id":{"$in":article["writer"]}});
     const trendingarticles = await Article.find().sort({visitCount: -1}).limit(4)
     if (article == null) res.redirect('/')
