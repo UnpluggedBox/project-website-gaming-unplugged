@@ -40,7 +40,9 @@ var ArticleSchema = new mongoose.Schema({
     required: true,
     unique: true
   },
-  comments: [{type: mongoose.Schema.ObjectId, ref: "Comment"}] 
+  comments: [{
+    type: mongoose.Schema.ObjectId, 
+    ref: "Comment"}] 
 
 }, {timestamps: true});
 

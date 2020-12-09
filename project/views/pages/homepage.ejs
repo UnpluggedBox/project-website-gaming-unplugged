@@ -55,9 +55,9 @@
 						</div>
 						<div class="blog-text text-box text-white">
 							<% if (article.category == 'News') { %>
-							<div class="top-meta"><label><%= article.updatedAt.toLocaleString() %> | <a href="/newslist"><%= article.category %></a></div>
+							<div class="top-meta"><label><%= article.createdAt.toLocaleString() %> | <a href="/newslist"><%= article.category %></a></div>
 							<% } else { %>
-							<div class="top-meta"><label><%= article.updatedAt.toLocaleString() %> | <a href="/reviewlist"><%= article.category %></a></div>
+							<div class="top-meta"><label><%= article.createdAt.toLocaleString() %> | <a href="/reviewlist"><%= article.category %></a></div>
 							<% } %>
 							<h3><%= article.title %></h3>
 							<p style="color:#ffffff"><%= article.summary %><b></b>

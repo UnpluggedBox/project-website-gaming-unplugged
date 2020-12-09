@@ -19,15 +19,11 @@ router.get('/:slug', async (req, res) => {
     const trendingarticles = await Article.find().sort({visitCount: -1}).limit(4)
     if (article == null) res.redirect('/')
 
-    Article.findOneAndUpdate(
-      {'slug': req.params.slug},
-      {$inc: {visitCount: 1}},
-      {safe: true, upsert: true, new : true},
-      function(err, model) {
-          
-      }
-    );
-    
+    db.collection('articles').updateOne(
+      {slug: req.params.slug},
+      {$inc: {visitCount: 1}}
+      )
+
     var userNameCommentResult = []
     db.collection('comments').aggregate([
       // Join with users table
@@ -104,7 +100,7 @@ router.get('/:slug', async (req, res) => {
     const article = await Article.findOne({ slug: req.params.slug })
     let comment= await Comment.find()
 
-    if(req.isAuthenticated()){
+    if(req.isAuthenticated() && req.body.usercomment){
         comment = new Comment({
             author: req.user.id,
             content: req.body.usercomment,
@@ -112,18 +108,19 @@ router.get('/:slug', async (req, res) => {
         });
         await comment.save();
 
-        Article.findOneAndUpdate(
-            {'slug': req.params.slug},
-            {$push: {comments: comment}},
-            {safe: true, upsert: true, new : true},
-            function(err, model) {
-                console.log(err);
-            }
-        );
+        db.collection('articles').updateOne(
+          {slug: req.params.slug},
+          {$push: {comments: comment._id}},
+          {safe: true, upsert: true, new : true}
+          );
+
         res.redirect(`/article/${req.params.slug}`);
-    } else {
+    } else if(!req.isAuthenticated()) {
         req.flash('error', 'Please login first!');
         res.redirect(`/article/${req.params.slug}`);
+    } else {
+      req.flash('error', 'Comment cant be empty!');
+      res.redirect(`/article/${req.params.slug}`);
     }
   })
 

@@ -213,7 +213,7 @@ router.post("/:username/upload", upload.single("image"), async (req, res) => {
     });
 
     router.post('/:username/article/:slug/edit', upload.single("image"), async (req, res) => {
-      const docs = await Article.findOne({slug:req.params.slug})
+      let docs = await Article.findOne({ slug:req.params.slug })
 
         if (req.body.filename == undefined) {
           // req.flash('error', 'No picture selected!');
@@ -233,6 +233,7 @@ router.post("/:username/upload", upload.single("image"), async (req, res) => {
             docs.image = obj.img;
      try{
       docs.save();
+      console.log(docs);
       res.redirect(`/profile/articlelist`);
      }catch(e){
      console.log(e)
