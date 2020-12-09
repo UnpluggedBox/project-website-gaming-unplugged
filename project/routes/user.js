@@ -6,6 +6,7 @@ var path = require('path');
 const User = require('../models/user');
 const Article = require('../models/article');
 const Carousel = require('../models/carousel')
+const Genre = require('../models/genre')
 const router = express.Router();
 const mongoose = require('mongoose');
 const user = require('../models/user');
@@ -119,6 +120,7 @@ router.get('/:username/readlist', async (request, response) => {
   router.get('/:username/article', async (request, response) => {
     if(request.isAuthenticated()){
       const user = await User.findOne({_id: request.user.id})
+      const genres = await Genre.find()
       response.render('pages/article', { 
         username: user.username,
         email: user.email,
@@ -126,7 +128,7 @@ router.get('/:username/readlist', async (request, response) => {
         firstName: user.firstName,
         lastName: user.lastName,
         image: user.image,
-        genre: user.genre,
+        genre: genres,
         history: user.history,
         role: user.role,
         isLoggedIn: true, title: 'Unplugged Games' });
@@ -184,7 +186,7 @@ router.get('/:username/readlist', async (request, response) => {
 
     router.get('/:username/article/:slug/edit', async (req, res) => {
       const docs = await Article.findOne({slug:req.params.slug})
-      
+      const genres = await Genre.find()
       if(req.isAuthenticated()){
         const user = await User.findOne({_id: req.user.id})
         res.render('pages/articleedit', { 
@@ -193,6 +195,7 @@ router.get('/:username/readlist', async (request, response) => {
           lastName: user.lastName,
           role: user.role,
           article: docs,
+          genre: genres,
           isLoggedIn: true, title: 'Unplugged Games' });
       } else {
         response.render('pages/profile', { isLoggedIn: false, title: 'Unplugged Games' });
@@ -265,6 +268,7 @@ router.post("/:username/upload", upload.single("image"), async (req, res) => {
           summary: req.body.summary,
           content: req.body.content,
           category: req.body.category,
+          genre: req.body.genre,
           image: obj.img
         });
           await article.save();
@@ -290,6 +294,7 @@ router.post("/:username/upload", upload.single("image"), async (req, res) => {
             docs.summary = req.body.summary;
             docs.content = req.body.content;
             docs.image = obj.img;
+            docs.genre = req.body.genre;
      try{
       docs.save();
       console.log(docs);

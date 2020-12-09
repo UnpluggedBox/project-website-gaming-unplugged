@@ -12,9 +12,9 @@ var ArticleSchema = new mongoose.Schema({
       ref: 'User',
       required: [true, "can't be blank"]
     },
-  genre: [{
+  genre: {
       type: String
-  }],
+  },
   content: {
     type: String,
     required: true

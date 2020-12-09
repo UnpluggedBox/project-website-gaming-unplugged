@@ -22,27 +22,51 @@
 					</ul>
 					</div>
 					<!-- Blog item -->
-					<% article.forEach(article => { %>
+					<% for (var i = 0; i < article.length; i++) { %>
 					<div class="blog-item">
 						<div class="blog-thumb">
-							<img src="data:image/<%= article.image.contentType %>;base64,<%= article.image.data.toString('base64') %>" alt="" style="height: 325; width: 345;">
+							<img src="data:image/<%= article[i].image.contentType %>;base64,<%= article[i].image.data.toString('base64') %>" alt="" style="height: 325; width: 345;">
 						</div>
 						<div class="blog-text text-box text-white">
-							<% if (article.category == 'News') { %>
-							<div class="top-meta"><label><%= article.createdAt.toLocaleString() %> | <a href="/newslist"><%= article.category %></a></div>
-							<% } else { %>
-							<div class="top-meta"><label><%= article.createdAt.toLocaleString() %> | <a href="/reviewlist"><%= article.category %></a></div>
-							<% } %>
-							<h3 style="overflow: hidden; display: -webkit-box;-webkit-line-clamp: 3; -webkit-box-orient: vertical;"><%= article.title %></h3>
-							<p style="overflow: hidden; display: -webkit-box;-webkit-line-clamp: 2; -webkit-box-orient: vertical; color: rgb(255, 255, 255);"><%= article.summary %><b></b>
+							<div class="top-meta"><label><%= article[i].createdAt.toLocaleString() %> | <a href="/reviewlist"><%= article[i].category %></a></div>
+							<h3 style="overflow: hidden; display: -webkit-box;-webkit-line-clamp: 3; -webkit-box-orient: vertical;"><%= article[i].title %></h3>
+							<p style="overflow: hidden; display: -webkit-box;-webkit-line-clamp: 2; -webkit-box-orient: vertical; color: rgb(255, 255, 255);"><%= article[i].summary %><b></b>
                             </p>
-							<a href="/article/<%= article.slug %>" class="read-more">Read More <img src="images/icons/double-arrow.png" alt="#"/></a>
+							<a href="/article/<%= article[i].slug %>" class="read-more">Read More <img src="images/icons/double-arrow.png" alt="#"/></a>
 						</div>
 					</div>
-					<% }) %>
 					<!-- Blog item -->
-                
+					<% } %>
+					<% if (pages > 0) { %>
+						<ul class="pagination text-center">
+							<% if (current == 1) { %>
+								<li class="disabled"><a>First</a></li>
+							<% } else { %>
+								<li><a href="/products/1">First</a></li>
+							<% } %>
+							<% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+							<% if (i !== 1) { %>
+								<li class="disabled"><a>...</a></li>
+							<% } %>
+							<% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
+								<% if (i == current) { %>
+									<li class="active"><a><%= i %></a></li>
+								<% } else { %>
+									<li><a href="/products/<%= i %>"><%= i %></a></li>
+								<% } %>
+								<% if (i == Number(current) + 4 && i < pages) { %>
+									<li class="disabled"><a>...</a></li>
+								<% } %>
+							<% } %>
+							<% if (current == pages) { %>
+								<li class="disabled"><a>Last</a></li>
+							<% } else { %>
+								<li><a href="/reviewlist/<%= pages %>">Last</a></li>
+							<% } %>
+						</ul>
+					<% } %>
 				</div>
+				
                 <%- include('../partials/trending'); %>
 
 				</div>

@@ -75,18 +75,13 @@
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label>Genres</label><br>
-                                                        <input type="checkbox" id="jrpg" name="jrpg" value="jrpg">
-                                                        <label for="genre1"> JRPG</label>
-                                                        <input type="checkbox" id="mmo" name="mmo" value="mmo" style="margin-left: 50px;">
-                                                        <label for="genre2"> MMORPG</label>
-                                                        <input type="checkbox" id="fps" name="fps" value="fps" style="margin-left: 50px;">
-                                                        <label for="genre3"> First Person Shooter</label><br>
-                                                        <input type="checkbox" id="racing" name="racing" value="racing">
-                                                        <label for="genre4"> Racing</label>
-                                                        <input type="checkbox" id="puzzle" name="puzzle" value="puzzle" style="margin-left: 37px;">
-                                                        <label for="genre5"> Puzzle</label>
-                                                        <input type="checkbox" id="puzzle" name="puzzle" value="puzzle" style="margin-left: 59px;">
-                                                        <label for="genre5"> HORROR</label>
+                                                        <select id="genre" name="genre">
+                                                        <% genre.forEach(genre => { %>
+
+                                                            <option><%= genre.name %></option>
+
+                                                        <% }) %>
+                                                        </select>
                                                     </div>
                                                 </div>
                                             </div>

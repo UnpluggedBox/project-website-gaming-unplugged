@@ -25,7 +25,6 @@ var UserSchema = new mongoose.Schema({
   },
   firstName: String,
   lastName: String,
-  genre: String,
   history: [{
     type: mongoose.Schema.ObjectId,
     ref: 'Article',
