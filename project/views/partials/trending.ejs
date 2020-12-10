@@ -15,7 +15,7 @@
 							<% } else { %>
                             <div class="tw-meta"><%= trending.createdAt.toDateString() %>  /  in <a href="/reviewlist"><%= trending.category %></a></div>
                             <% } %>
-                        <h5 style="overflow: hidden; display: -webkit-box;-webkit-line-clamp: 3; -webkit-box-orient: vertical;"><a href="/article/<%= trending.slug %>"><%= trending.title %></a></h5>
+                        <h5 style="overflow: hidden; display: -webkit-box;-webkit-line-clamp: 3; -webkit-box-orient: vertical;"><a href="/article/<%= trending.slug %>" style="color: azure;"><%= trending.title %></a></h5>
                     </div>
                 </div>
                 <% }) %>

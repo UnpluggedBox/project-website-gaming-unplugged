@@ -39,7 +39,7 @@
                                                     <% historyResult.forEach(historyResult => { %>
                                                     <tr>
                                                         <td><%= i = i + 1 %></td>
-                                                        <td><%= historyResult.title %></td>
+                                                        <td><a href="/article/<%= historyResult.slug %>" style="color: black;"><%= historyResult.title %></a></td>
                                                         <td><%= historyResult.firstName %> <%= historyResult.lastName %></td>
                                                         <td><%= historyResult.category %></td>
                                                     </tr>
