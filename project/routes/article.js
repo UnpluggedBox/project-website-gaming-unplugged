@@ -13,9 +13,24 @@ const db = mongoose.connection;
 router.use(express.json());
 
 router.get('/:slug', async (req, res) => {
+
+  
+    var countReview =  await Article.countDocuments({ category: 'Review'}).exec();
+    var countNews =  await Article.countDocuments({ category: 'News' }).exec();
+    console.log(countNews)
+
+    var x = countReview - 3;
+    var y = countNews - 3;
+
+    var randomReview = countReview - x;
+    var randomNews = countNews - y;
+
+    console.log(randomReview)
+    console.log(randomNews)
+
     const article = await Article.findOne({ slug: req.params.slug })
-    const relatednews = await Article.find({ category: 'News'}).limit(3);
-    const relatedreview = await Article.find({ category: 'Review'}).limit(3);
+    const relatednews = await Article.find({ category: 'News'}).limit(3).skip(randomNews);
+    const relatedreview = await Article.find({ category: 'Review'}).limit(3).skip(randomReview);
     const fullName = await User.findOne({"_id":{"$in":article["writer"]}});
     const trendingarticles = await Article.find().sort({visitCount: -1}).limit(4)
     if (article == null) res.redirect('/')

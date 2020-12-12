@@ -33,7 +33,7 @@ router.get('/games', async (request, response) => {
 router.get('/reviewlist', async (request, response) => {
   const trendingarticles = await Article.find().sort({visitCount: -1}).limit(4)
   const page = parseInt(request.query.page) >= 1 ? parseInt(request.query.page) : 1;
-  const limit = 6
+  const limit = 5
   const pagination = {}
   const startIndex = (page -1) * limit
   const endIndex = page * limit
@@ -76,7 +76,7 @@ router.get('/reviewlist', async (request, response) => {
 router.get('/newslist', async (request, response) => {
   const trendingarticles = await Article.find().sort({visitCount: -1}).limit(4)
   const page = parseInt(request.query.page) >= 1 ? parseInt(request.query.page) : 1;
-  const limit = 6
+  const limit = 5
   const pagination = {}
   const startIndex = (page -1) * limit
   const endIndex = page * limit
