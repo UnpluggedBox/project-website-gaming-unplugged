@@ -37,7 +37,7 @@ app.use(require('express-session')({
   resave: true,
   saveUninitialized: true
 }));
-const port = 3000;
+var port = process.env.PORT || 3000;
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, './views'));
