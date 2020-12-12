@@ -70,21 +70,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <label>Genres</label><br>
-                                                        <select id="genre" name="genre">
-                                                        <% genre.forEach(genre => { %>
-
-                                                            <option><%= genre.name %></option>
-
-                                                        <% }) %>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
         
                                             <label for="content">Content</label>
                                             <input type="hidden" name="content" id="content" value="<%= article.content %>">

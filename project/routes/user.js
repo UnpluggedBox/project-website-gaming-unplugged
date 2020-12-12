@@ -264,7 +264,6 @@ router.post("/:username/upload", upload.single("image"), async (req, res) => {
         article = new Article({
           title: req.body.title,
           writer: req.user.id,
-          genre: req.body.genre,
           summary: req.body.summary,
           content: req.body.content,
           category: req.body.category,
@@ -294,7 +293,6 @@ router.post("/:username/upload", upload.single("image"), async (req, res) => {
             docs.summary = req.body.summary;
             docs.content = req.body.content;
             docs.image = obj.img;
-            docs.genre = req.body.genre;
      try{
       docs.save();
       console.log(docs);
