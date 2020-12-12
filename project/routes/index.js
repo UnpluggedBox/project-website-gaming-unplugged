@@ -21,21 +21,6 @@ router.get('/games', async (request, response) => {
     })
   }
 
-
-  //   if(request.query.search) {
-  //     await Article.find({
-  //       "$or": [
-  //       { "title" : {'$regex': request.query.search, "$options":"i"}},
-  //       { "genre" : {'$regex': request.query.search, "$options":"i"}} ]
-
-  //     }), function(err, result) {
-  //       if(err){
-  //         console.log(err);
-  //     } else {
-  //     articles = result;
-  //     }
-  //   }
-  // }
   
   if(request.isAuthenticated()){
     response.render('pages/games', { username: request.user.username, article: articles, isLoggedIn: true, trending: trendingarticles, title: 'Unplugged Games' });

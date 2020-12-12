@@ -58,9 +58,10 @@ app.get('/', async (request, response) => {
       isLoggedIn: true,
       trending: trendingarticles,
       carousel: carousel, 
-      article: article, title: "Unplugged Games" });
+      article: article,
+      pageTitle: 'Unplugged Games'});
   } else {
-    response.render('pages/homepage', { isLoggedIn: false, article: article, carousel: carousel,  trending: trendingarticles, title: 'Unplugged Games' });
+    response.render('pages/homepage', { isLoggedIn: false, article: article, carousel: carousel,  trending: trendingarticles, pageTitle: 'Unplugged Games'});
   }
 });
 
