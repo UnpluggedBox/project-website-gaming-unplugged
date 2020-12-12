@@ -31,31 +31,86 @@ router.get('/games', async (request, response) => {
 });
 
 router.get('/reviewlist', async (request, response) => {
-  var perPage = 6
-  var page = parseInt(request.query.page) >= 1 ? parseInt(request.query.page) : 1;
-  let qty =  await Article.countDocuments().exec()
   const trendingarticles = await Article.find().sort({visitCount: -1}).limit(4)
-  const articles = await Article
-  .find({ category: 'Review'})
-  .sort({createdAt: -1})
-  .skip((perPage * page) - perPage)
-  .limit(perPage)
+  const page = parseInt(request.query.page) >= 1 ? parseInt(request.query.page) : 1;
+  const limit = 6
+  const pagination = {}
+  const startIndex = (page -1) * limit
+  const endIndex = page * limit
+  let articles
+  let jumlah =  await Article.countDocuments().exec()
+
+     await Article.find({category: 'Review'}).limit(limit)
+      .skip(startIndex)
+      .then((results) => {
+        articles = results
+        if (endIndex < jumlah)
+        {
+         pagination.next = {
+             page : page +1,
+             limit: limit
+         }
+        }
+        if (startIndex > 0){
+         pagination.previous = {
+             page: page-1,
+             limit: limit
+         }
+        }  
+      })
+      .catch((err) => {
+        console.log(err)
+        res.redirect('/')
+      })
+ 
+
+
   if(request.isAuthenticated()){
-    response.render('pages/reviewlist', { username: request.user.username, trending: trendingarticles, article: articles, current: page, pages: Math.ceil(qty / perPage), isLoggedIn: true, title: 'Unplugged Games' });
+    response.render('pages/reviewlist', { username: request.user.username, trending: trendingarticles, article: articles, pagination:pagination, currentpage:page, isLoggedIn: true, title: 'Unplugged Games' });
 
   } else {
-    response.render('pages/reviewlist', { isLoggedIn: false, trending: trendingarticles, article: articles, current: page, pages: Math.ceil(qty / perPage), title: 'Unplugged Games' });
+    response.render('pages/reviewlist', { isLoggedIn: false, trending: trendingarticles, article: articles, pagination:pagination, currentpage:page, title: 'Unplugged Games' });
   }
 });
 
 router.get('/newslist', async (request, response) => {
   const trendingarticles = await Article.find().sort({visitCount: -1}).limit(4)
-  const articles = await Article.find({ category: 'News'}).sort({createdAt: -1}).limit(6)
+  const page = parseInt(request.query.page) >= 1 ? parseInt(request.query.page) : 1;
+  const limit = 6
+  const pagination = {}
+  const startIndex = (page -1) * limit
+  const endIndex = page * limit
+  let articles
+  let jumlah =  await Article.countDocuments().exec()
+
+    await Article.find({category: 'News'}).limit(limit)
+    .skip(startIndex)
+    .then((results) => {
+      articles = results
+      if (endIndex < jumlah)
+      {
+      pagination.next = {
+          page : page +1,
+          limit: limit
+      }
+      }
+      if (startIndex > 0){
+      pagination.previous = {
+          page: page-1,
+          limit: limit
+      }
+      }  
+    })
+    .catch((err) => {
+      console.log(err)
+      res.redirect('/')
+    })
+
   if(request.isAuthenticated()){
-    response.render('pages/newslist', { username: request.user.username, trending: trendingarticles, article: articles, isLoggedIn: true, title: 'Unplugged Games' });
+    response.render('pages/newslist', { username: request.user.username, trending: trendingarticles, article: articles, pagination:pagination, currentpage:page, isLoggedIn: true, title: 'Unplugged Games' });
 
   } else {
-    response.render('pages/newslist', { isLoggedIn: false, trending: trendingarticles, article: articles, title: 'Unplugged Games' });
+    response.render('pages/newslist', { isLoggedIn: false, trending: trendingarticles, article: articles, pagination:pagination, currentpage:page, title: 'Unplugged Games' });
   }
 });
 

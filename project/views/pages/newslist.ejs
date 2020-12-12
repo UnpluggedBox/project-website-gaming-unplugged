@@ -35,9 +35,37 @@
 						
 					<!-- Next Page -->
 					<br><br><br><br><br>
-					<button onclick="window.location.href='newslist2.html'" class="previously-page" style="color:white;background-color:purple;">Next Page
-				    <img src="images/icons/double-arrow.png" alt="" style="height: 14px;margin-left:14px">
-					</button>
+					<div>
+						<!-- Pagination -->
+							<div class="container mt-5" style="margin-top: 50px;"><div class="row ">
+							<div class="col justify-content-center">
+								<div class="d-flex justify-content-center">
+								<nav aria-label="...">
+									<ul class="pagination pagination-lg">
+									
+									<% if(pagination.previous) {%>
+									<li class="page-item"><a class="page-link" href="/reviewlist/?page=<%= pagination.previous.page %>">Back</a></li>
+									<%} else {%>
+									<li class="page-item disabled"><a class="page-link">Back</a></li>
+									<% } %>
+									<li class="page-item disabled">
+										<a class="page-link" href="#" tabindex="-1">Page <%= currentpage %></a>
+									</li>
+									<% if(pagination.next) {%>
+										<li class="page-item"><a class="page-link" href="/reviewlist/?page=<%= pagination.next.page %>">Next</a></li>
+									<%} else {%>
+										<li class="page-item disabled"><a class="page-link">Next</a></li>
+										<% } %>
+									</ul>
+								</nav>
+								</div>
+							</div>
+							</div>
+						</div>
+
+					</div>
+
+
 					</div>
 				
 				<%- include('../partials/trending'); %>
