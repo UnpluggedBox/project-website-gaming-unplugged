@@ -1,4 +1,6 @@
-# Unplugged Gaming Website - https://unplugged-games-website.herokuapp.com/
+# Unplugged Gaming Website - ![](https://i.imgur.com/R63C3yQ.png)
+# https://unplugged-games-website.herokuapp.com/
+
 A group project making a website related to gaming news and reviews
 
 Developers:
