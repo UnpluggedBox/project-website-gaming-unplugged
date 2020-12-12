@@ -63,12 +63,11 @@ router.get('/:username/carousel', async (request, response) => {
   }
 });
 
-router.get('/:username/readlist', async (request, response) => {
+router.get('/:username/history', async (request, response) => {
     const userid = await User.findOne({ _id: request.user.id })
     var historyResult = []
     db.collection('articles').aggregate([
       // Join with users table
-      // { "$addFields": { "writerName": { $concat: [ "$firstName", "$lastName" ] }}},
       { "$match": { "_id":{"$in":userid["history"]}} },
       {
           "$lookup":{
