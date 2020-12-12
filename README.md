@@ -1,4 +1,6 @@
-# Unplugged Gaming Website
+# Unplugged Gaming Website - ![](https://i.imgur.com/R63C3yQ.png)
+# https://unplugged-games-website.herokuapp.com/
+
 A group project making a website related to gaming news and reviews
 
 Developers:
@@ -60,7 +62,35 @@ v0.5.2:
     * Removed some unnecessary code
     
     
-Planned for v0.6 and beyond:
+v0.6:
 
-    -Back end stuff
+    * Migrated html files to .ejs
+    * Completed the register function for back-end
+    * Implemented login function using passport-local
+
+v0.7:
+
+    * Ability to diferentiate Admin/User
+    * Implemented ability to edit profile for Admin and user
+    * Added Article Posting for Admin
+    * Partial Article Viewing
+
+v0.8:
+
+    * Added Article List page where Admin(s) can edit and delete Articles
+    * Implemented a working search feature in Games page
+    * Added Article Editing for Admin
+    * Implemented a working comments section for each Article
+    
+v0.9:
+
+    * Implemented History page where it tracks Articles the User/Admin have read
+    * Implemented Trending feature
+    * Added Carousel Settings page where Admin can add and delete the carousel in home page
+    * Implemented pagination in reviewlist and newslist page
+    * Removed Genre altogether from the Schemas (cut feature)
+    
+v1.0:
+
+    * Deployed using Heroku
     
