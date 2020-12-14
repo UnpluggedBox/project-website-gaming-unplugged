@@ -93,7 +93,7 @@ router.get('/:username/history', async (request, response) => {
     if (err) throw err;
     historyResult = result;
     console.log('===============================')
-    console.log(historyResult)
+    
 
     if(request.isAuthenticated()){
       const user = await User.findOne({_id: request.user.id})
