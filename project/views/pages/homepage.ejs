@@ -1,0 +1,78 @@
+<html>
+	<%- include('../partials/head'); %>
+	<%- include('../partials/header'); %>
+	<title><%- pageTitle %></title>
+<body>
+	<!-- Hero/Top/Carousel section -->
+	<section class="hero-section overflow-hidden">
+		<div class="hero-slider owl-carousel">
+			<% carousel.forEach(carousel => { %>
+				<div class="hero-item set-bg d-flex align-items-center justify-content-center text-center" data-setbg="data:image/<%= carousel.image.contentType %>;base64,<%= carousel.image.data.toString('base64') %>">
+					<div class="container">
+						<h2><%= carousel.summary %></h2>
+						<p></p>
+						<a href="/article/<%= carousel.slug %>" class="site-btn">Read More  <img src="/images/double-arrow.png" alt="#"/></a> 
+					</div>
+				</div>
+			<% }) %>
+		</div>
+	</section>
+    <!-- Hero section end-->
+    
+    <!-- Blog section -->
+	<section class="blog-section spad">
+		<div class="container">
+			<div class="row">
+				<div class="col-xl-9 col-lg-8 col-md-7">
+					<div class="section-title text-white">
+						<h2>Latest News and Reviews by Our Staff</h2>
+					</div>
+					<ul class="blog-filter">
+						<li><a href="/newslist">News</a></li>
+						<li><a href="/reviewlist">Reviews</a></li>
+                    </ul>
+					
+					
+					<!-- Blog item -->
+					<% article.forEach(article => { %>
+					<div class="blog-item" style="margin-bottom: 150px;">
+						<div class="blog-thumb">
+							<img src="data:image/<%= article.image.contentType %>;base64,<%= article.image.data.toString('base64') %>" alt="" style="height: 325; width: 345;">
+						</div>
+						<div class="blog-text text-box text-white">
+							<% if (article.category == 'News') { %>
+							<div class="top-meta"><label><%= article.createdAt.toLocaleString() %> | <a href="/newslist"><%= article.category %></a></div>
+							<% } else { %>
+							<div class="top-meta"><label><%= article.createdAt.toLocaleString() %> | <a href="/reviewlist"><%= article.category %></a></div>
+							<% } %>
+							<h3 style="overflow: hidden; display: -webkit-box;-webkit-line-clamp: 3; -webkit-box-orient: vertical;"><%= article.title %></h3>
+							<p style="overflow: hidden; display: -webkit-box;-webkit-line-clamp: 3; -webkit-box-orient: vertical; color: rgb(255, 255, 255);"><%= article.summary %>
+							</p>
+							<a href="/article/<%= article.slug %>" class="read-more">Read More <img src="images/icons/double-arrow.png" alt="#"/></a>
+						</div>
+					</div>
+					<% }) %>
+					<!-- Blog item -->
+					
+
+                </div>
+                <!-- Blog item -->
+
+				<!--sidebar trending-->
+				<%- include('../partials/trending'); %>
+				<!--sidebar trending end-->
+				</div>
+			</div>
+	</section>
+    <!-- Blog section end -->
+
+	<%- include('../partials/footer'); %>
+
+
+    <!--====== Javascripts & Jquery ======-->
+	<%- include('../partials/script'); %>
+	<script src="/js/login.js"></script>
+	<script src="/js/Register.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,118 @@
+<html>	
+    
+<%- include('../partials/head'); %>
+<%- include('../partials/header'); %>
+<title><%- article.title %></title>
+<body>
+    
+    <!--Review body section-->
+    <section class="blog-section spad">
+		<div class="container">
+			<div class="row">
+                <div class="col-xl-9">
+                    <div class="jumbotron jumbotron-fluid" style="background:transparent; margin-bottom: -80px; margin-top: -35px;">
+                        <div class="container">
+                          <h2 class="display-5" style="margin-bottom: -20px; color:whitesmoke"><%= article.title %></h2>
+                          <p class="lead">
+                              <h2 class="text-white">
+                            <h4>Written by: <a href="/staff" style="color:red"><u><%= fullName.firstName + " " + fullName.lastName %></u></a> <h6>Published: <%= article.createdAt.toLocaleString() %>, last Updated <%= article.updatedAt.toLocaleString() %></h6></h4>
+                        </h2>
+                        </p>
+                        </div>
+                    </div>
+                <hr class="border-bottom">
+                <img src="data:image/<%= article.image.contentType %>;base64,<%= article.image.data.toString('base64') %>" class="review-pic" width="900px">
+                
+                <%- article.content %>
+                
+                
+                <hr class="border-bottom">
+                <!--Related News section-->
+                <h4><a href="/reviewlist" style="color:rgb(255, 255, 255)">Related Reviews</a><u></u> </h4><br>               
+                <!--Card Group-->
+                <div class="card-deck">
+                    <% relatedreview.forEach(relatedreview => { %>
+                        <div class="card">
+                            <a href="/article/<%= relatedreview.slug %>"><img src="data:image/<%= relatedreview.image.contentType %>;base64,<%= relatedreview.image.data.toString('base64') %>" class="card-img-top" alt="..." height="160px"></a>
+                            <div class="card-body">
+                                <a href="/article/<%= relatedreview.slug %>"><h5 class="card-title"><%= relatedreview.title %></h5></a>
+                              <p class="card-text" style="color: #585858; overflow: hidden; display: -webkit-box;-webkit-line-clamp: 3; -webkit-box-orient: vertical;"><%= relatedreview.summary %> </p>
+                              <p class="card-text"><small class="text-muted">Last Updated <%= relatedreview.updatedAt.toLocaleString() %></small></p>
+                            </div>
+                        </div>
+                        <% }) %>
+                </div>
+                <!--Related News section-->
+                <hr class="border-bottom">
+                <!--Comments section-->
+                <h4><a href="" style="color:rgb(255, 255, 255)">Comments</a><u></u> </h4><br>
+                <!--Posted Comments-->
+                <div class="container">
+                    <% comments.forEach(comments => { %>
+                        <div class="row">
+                            <!--Comment item-->
+                            <div class="col-sm-1">
+                                <div class="thumbnail">
+                                    <% if (!comments.image) { %>
+                                        <img class="rounded-circle" src="" style="height: 50px;">
+                                        <% } else if(comments.image) { %>
+                                        <img class="rounded-circle" src="data:image/<%= comments.image.contentType %>;base64,<%= comments.image.data.toString('base64') %>" style="height: 50px;">
+                                        <% } %>
+                                </div><!--thumbnail -->
+                            </div>
+                            
+                            <div class="col-sm-5">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <strong><%= comments.username %></strong> <span style="color: whitesmoke;"><%= comments.createdAt.toLocaleString() %> </span>
+                                    </div>
+                                <div class="panel-body">
+                                    <%= comments.content %>
+                                </div><!--panel body -->
+                                </div><!--panel default -->
+                            </div>
+                        </div>
+                        <hr style="background-color: cadetblue;">
+                        <% }) %>
+                </div>
+                <!--Posted comments section end-->
+                <hr class="border-bottom">
+                <!--Comment section-->
+                <h4><a href="" style="color:rgb(255, 255, 255)">Post a comment</a></h4>
+                <div class="container">
+                <form action="/article/<%= article.slug %>/post-comment" method="POST">
+                  
+                  <br>
+                  <textarea rows="2" class="form-control" cols="50" name="usercomment" id="usercomment" placeholder="Please be respectful in the comment section."></textarea>
+                  <br>
+                  <% if (messages.error){ %>
+                    <div class="alert alert-danger" role="alert">
+                        <%= messages.error %> 
+                    </div>
+                    <% } %> 
+                    <button class="btn btn-info">Post Comment</button> 
+                </form>
+
+                </div>
+                <!--Comment section end-->
+                </div>
+                <!--Review body section end-->
+                
+                <!--Sidebar trending-->
+                <%- include('../partials/trending'); %>
+                <!--Sidebar trending-->
+                </div>
+            </div>
+        </section> 
+    
+    <!-- Footer section -->
+    <%- include('../partials/footer'); %>
+	<!-- Footer section end -->
+
+
+    <!--====== Javascripts & Jquery ======-->
+    
+    <%- include('../partials/script'); %>
+
+</body>
+</html>

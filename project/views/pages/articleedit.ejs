@@ -1,0 +1,158 @@
+<html>
+    <%- include('../partials/profilehead'); %>
+    <title>Article Edit</title>
+<body>
+        <div class="wrapper">
+                <!--Sidebar-->
+                <%- include('../partials/sidebar'); %>
+                <!--Sidebar end-->
+
+                <!--Main Panel/Content-->
+                <div class="main-panel">
+                    <nav class="navbar navbar-default navbar-fixed" style="background-color: rgba(226, 30, 228, 0.24);">
+                        <div class="container-fluid" >
+                            <div class="navbar-header">
+                                <a class="navbar-brand" href="/profile/<%= username %>" style="color: cornsilk;">User Profile</a>
+                            </div>
+                            <div class="user-panel">
+                                <a href="/">Back</a>
+                            </div>
+                        </div>
+                    </nav>
+                    
+                    <!--Edit profile card-->
+
+                    <div class="content">
+                        <div class="container-fluid">
+                        <div class="row">
+                            
+                            <div class="col-md-8">
+                                <div class="card">
+                                    <div class="header">
+                                        <h4 class="title">Post Article</h4>
+                                    </div>
+                                    <div class="content">
+                                        <form action="/profile/<%= username %>/article/<%= article.slug %>/edit" method="post" enctype="multipart/form-data">
+                                            <input type="file" id="image" name="image">
+                                                <br>
+                                          <br>
+                                            <div class="row">
+                                                <div class="col-md-9">
+                                                    <div class="form-group">
+                                                        <label>Title</label>
+                                                        <input type="text" class="form-control" placeholder="Insert title here..." name="title" id="title" value="<%= article.title %>">
+                                                    </div>
+                                                </div>
+                                            </div>
+        
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Writer</label>
+                                                        <input type="text" class="form-control" name="writer" id="writer" value="<%= firstName + " " + lastName %>" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Category</label>
+                                                        <input type="text" class="form-control" name="category" id="category" placeholder="News / Review" value="<%= article.category %>">
+                                                    </div>
+                                                </div>
+                                            </div>
+        
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Summary</label>
+                                                        <input type="text" class="form-control" name="summary" id="summary" placeholder="Article summary here.." value="<%= article.summary %>">
+                                                    </div>
+                                                </div>
+                                            </div>
+        
+                                            <label for="content">Content</label>
+                                            <input type="hidden" name="content" id="content" value="<%= article.content %>">
+                                                <div id="texteditor" name="texteditor">
+                                                    <p>Write content here..</p>
+                                                </div>
+                                                <br>
+
+                                            <button class="btn btn-info btn-fill pull-right">Edit Article</button>    
+                                            <button type="button" onclick="changeHiddenContent();" class="btn btn-info btn-fill pull-right" style="margin-right: 10;">Validate Content</button>
+                                            <button type="button" onclick="refreshData();" class="btn btn-info btn-fill pull-right" style="margin-right: 10;">Refresh Data</button>
+                                            <div class="clearfix"></div>
+
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+
+            <!-- Footer section -->
+            <footer class="footer-section">
+                <div class="container">
+                    <ul class="main-menu footer-menu">
+                        <li><a href="/"></a></li>
+
+                    </ul>
+                    <ul class="main-menu footer-menu">
+                        <li><a href="/"></a></li>
+
+                    </ul>
+                    <ul class="main-menu footer-menu">
+                        <li><a href="/"></a></li>
+
+                    </ul>
+                    <ul class="main-menu footer-menu">
+                        <li><a href="/"></a></li>
+
+                    </ul>
+                    <ul class="main-menu footer-menu">
+                        <li><a href="/"></a></li>
+
+                    </ul>
+                    <ul class="main-menu footer-menu">
+                        <li><a href="/"></a></li>
+
+                    </ul>
+                    <ul class="main-menu footer-menu">
+                        <li><a href="/"></a></li>
+
+                    </ul>
+                </div>
+            </footer>
+            <!-- Footer section end -->
+    </div>
+    <!--Wrapper End-->  
+    <!--====== Javascripts & Jquery ======-->
+    <script>
+        var editor1 = new RichTextEditor("#texteditor");
+
+
+            function changeHiddenContent(){
+            var htmlcontent = editor1.getHTMLCode();
+            document.getElementById("content").value = htmlcontent;
+            alert(document.getElementById("content").value)
+        }
+
+        function refreshData(){
+            var stringContent = document.getElementById("content").value;
+            editor1.setHTMLCode(stringContent);
+        }
+    </script>
+	<script src="js/jquery-3.2.1.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/jquery.slicknav.min.js"></script>
+	<script src="js/owl.carousel.min.js"></script>
+	<script src="js/jquery.sticky-sidebar.min.js"></script>
+	<script src="js/jquery.magnific-popup.min.js"></script>
+	<script src="js/main.js"></script>
+
+</body>
+</html>
