@@ -1,5 +1,0 @@
-tui.image-editor
-
-MIT License
-
-https://github.com/nhn/tui.image-editor/
