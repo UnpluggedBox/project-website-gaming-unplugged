@@ -124,5 +124,4 @@ router.get('/staff', async (request, response) => {
   }
 });
 
-
 module.exports = router;
