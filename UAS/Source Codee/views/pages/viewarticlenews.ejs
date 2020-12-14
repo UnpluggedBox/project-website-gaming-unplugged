@@ -1,0 +1,138 @@
+<html>
+    
+    <%- include('../partials/head'); %>
+    <%- include('../partials/header'); %>
+    <title><%- article.title %></title>
+    <style>
+    .backgroundA {
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-image: url("data:image/<%= article.image.contentType %>;base64,<%= article.image.data.toString('base64') %>");
+	    background-position: top center;
+    }
+    </style>
+<body>
+
+    <!-- Intro section -->
+	    <section class="intro-news-section d-flex align-items-end backgroundA">
+            <div class="container">
+                <div class="news-text">
+                    <h2><%= article.title %></h2>
+                    <p><%= article.summary %></p>
+                    <h6>Written by <a href="/staff" style="color:red"><u><%= fullName.firstName + " " + fullName.lastName %></u></a></h6>
+                    <h6>Published: <%= article.createdAt.toLocaleString() %>, last Updated <%= article.updatedAt.toLocaleString() %></h6>
+                </div>
+            </div>
+        </section>
+    <!-- Intro section end -->
+        <!-- <div class="container js-fillcolor" style="width: 1200px; background-color: aqua;" >
+            
+              <img width="200" height="200" src="data:image/<%= article.image.contentType %>;base64,<%= article.image.data.toString('base64') %>">
+    </div> -->
+            
+    <!--News body section-->
+
+    <section class="blog-section spad">
+		<div class="container">
+			<div class="row">
+                <div class="col-xl-9 col-lg-8 col-md-7">
+                <!--News content-->
+                
+                <%- article.content %>
+                
+                <hr class="border-bottom">
+                <h4><a href="" style="color:rgb(255, 255, 255)">Related News</a><u></u> </h4><br>               
+                <!--Card Group-->
+                <div class="card-deck">
+                    <% relatednews.forEach(relatednews => { %>
+                        <div class="card">
+                            <a href="/article/<%= relatednews.slug %>"><img src="data:image/<%= relatednews.image.contentType %>;base64,<%= relatednews.image.data.toString('base64') %>" class="card-img-top" alt="..." height="160px"></a>
+                            <div class="card-body">
+                                <a href="/article/<%= relatednews.slug %>"><h5 class="card-title"><%= relatednews.title %></h5></a>
+                              <p class="card-text" style="color: #585858; overflow: hidden; display: -webkit-box;-webkit-line-clamp: 3; -webkit-box-orient: vertical;"><%= relatednews.summary %> </p>
+                              <p class="card-text"><small class="text-muted">Last Updated <%= relatednews.updatedAt.toLocaleString() %></small></p>
+                            </div>
+                        </div>
+                        <% }) %>
+                </div>
+                <hr class="border-bottom">
+                <!--Comments section-->
+                <h4><a href="/newslist" style="color:rgb(255, 255, 255)">Comments</a><u></u> </h4><br>
+                <!--Posted Comments-->
+                <div class="container">
+                    <% comments.forEach(comments => { %>
+                        <div class="row">
+                            <!--Comment item-->
+                            <div class="col-sm-1">
+                                <div class="thumbnail">
+                                    <% if (!comments.image) { %>
+                                        <img class="rounded-circle" src="" style="height: 50px;">
+                                        <% } else if(comments.image) { %>
+                                        <img class="rounded-circle" src="data:image/<%= comments.image.contentType %>;base64,<%= comments.image.data.toString('base64') %>" style="height: 50px;">
+                                        <% } %>
+                                </div><!--thumbnail -->
+                            </div>
+                            
+                            <div class="col-sm-5">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <strong><%= comments.username %></strong> <span style="color: whitesmoke;"><%= comments.createdAt.toLocaleString() %> </span>
+                                    </div>
+                                <div class="panel-body">
+                                    <%= comments.content %>
+                                </div><!--panel body -->
+                                </div><!--panel default -->
+                            </div>
+                        </div>
+                        <hr style="background-color: cadetblue;">
+                        <% }) %>
+                </div>
+                <!--Posted Comments section end-->
+                <hr class="border-bottom">
+                <!--Comment section-->
+                <h4><a href="" style="color:rgb(255, 255, 255)">Post a comment</a></h4>
+                <div class="container">
+                <form action="/article/<%= article.slug %>/post-comment" method="POST">
+                  
+                  <br>
+                  <textarea rows="2" class="form-control" cols="50" name="usercomment" id="usercomment" placeholder="Please be respectful in the comment section."></textarea>
+                  <br>
+                  <% if (messages.error){ %>
+                    <div class="alert alert-danger" role="alert">
+                        <%= messages.error %> 
+                    </div>
+                    <% } %> 
+                    <button class="btn btn-info">Post Comment</button> 
+                </form>
+                </div>
+                </div>
+                <!--Comment section end-->
+                <!--Sidebar other reviews-->
+                <%- include('../partials/trending'); %>
+                 <!--Sidebar other reviews END-->
+                </div>
+            </div>
+     </section> 
+     
+    <!--News Body Section End-->
+     
+    <!-- Footer section -->
+    <%- include('../partials/footer'); %>
+
+	<!-- Footer section end -->
+
+
+    <!--====== Javascripts & Jquery ======-->
+    <%- include('../partials/script'); %>
+    <!-- <script>
+        $( document ).ready(function () {
+            console.log( "tot" );
+            $('.js-fillcolor').fillColor();
+            console.log($('.js-fillcolor').getColor());
+        });
+    </script>
+
+    -->
+
+</body>
+</html>

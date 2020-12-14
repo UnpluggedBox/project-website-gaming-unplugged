@@ -1,0 +1,137 @@
+<html>
+    <%- include('../partials/profilehead'); %>
+    <title>Profile</title>
+<body>
+        <div class="wrapper">
+            <%- include('../partials/sidebar'); %>
+
+                <!--Main Panel/Content-->
+                <div class="main-panel">
+                    <nav class="navbar navbar-default navbar-fixed" style="background-color: rgba(226, 30, 228, 0.24);">
+                        <div class="container-fluid" >
+                            <div class="navbar-header">
+                                <a class="navbar-brand" href="/profile/<%= username %>" style="color: cornsilk;">User Profile</a>
+                            </div>
+                            <div class="user-panel">
+                                <a href="/">Back</a>
+                            </div>
+                        </div>
+                    </nav>
+                    <!--Edit profile card-->
+
+                    <div class="content">
+                        <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="card card-user">
+                                    <div class="image">
+                                        <img src="/images/lake.jpg" alt="..."/>
+                                    </div>
+                                    <div class="content">
+                                        <div class="author">
+                                             <a href="#">
+                                                <% if (image.data == undefined) { %>
+                                                    <img class="avatar border-gray" src="">
+                                                <% } else if(image.data !== undefined){ %>
+                                                    <img class="avatar border-gray" src="data:image/<%= image.contentType %>;base64,<%= image.data.toString('base64') %>">
+                                                <% } %>
+                                                
+                                              <h4 class="title" id="bioname"><br>
+                                                 <h4 class="title" id="biousername"><small></small>
+                                                </h4>
+                                              </h4>
+                                            </a>
+                                        </div>
+                                        <p class="description text-center" id="biotext"> Bio text here
+                                        </p>
+                                    </div>
+                                    <hr>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-8">
+                                <div class="card">
+                                    <div class="header">
+                                        <h4 class="title">Edit Profile</h4>
+                                    </div>
+                                    <div class="content">
+                                        <form action="/profile/<%= username %>/upload" method="post" enctype="multipart/form-data">
+                                            <input type="file" id="image" name="image">
+                                            <span id="message" style="color: red;">            
+                                                <% if (messages.error){ %>
+                                                <%= messages.error %> 
+                                                <% } %> 
+                                                </span>
+                                            <button type="submit" class="btn btn-info btn-fill pull-right">Update Avatar</button>
+                                          </form>
+                                          <br>
+                                        <form action="/profile/<%= username %>/update" method="post">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label>Username</label>
+                                                        <input type="text" class="form-control" placeholder="Username" name="username" id="username" value="<%= username %>">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Email address</label>
+                                                        <input type="email" class="form-control" placeholder="Email" name="email" id="email" value="<%= email %>" readonly> 
+                                                    </div>
+                                                </div>
+                                            </div>
+        
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>First Name</label>
+                                                        <input type="text" class="form-control" placeholder="First" name="firstname" id="firstname" value="<%= firstName %>">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Last Name</label>
+                                                        <input type="text" class="form-control" placeholder="Last" name="lastname" id="lastname" value="<%= lastName %>">
+                                                    </div>
+                                                </div>
+                                            </div>
+        
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label>About Me</label>
+                                                        <textarea rows="5" class="form-control" placeholder="Tell everyone about yourself, hobbies, favorite games etc" name="biography" id="biography" value="<%= bio %>"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+        
+                                            <button type="submit" class="btn btn-info btn-fill pull-right">Update Profile</button>
+                                            <div class="clearfix"></div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+
+            <!-- Footer section -->
+            <%- include('../partials/footer'); %>
+            <!-- Footer section end -->
+    </div>
+    <!--Wrapper End-->  
+    <!--====== Javascripts & Jquery ======-->
+
+    <script>
+
+        document.getElementById("biotext").innerHTML = "<%= bio %>";
+        document.getElementById("bioname").innerHTML = "<%= firstName %>" + " " + "<%= lastName %>";
+        document.getElementById("biousername").innerHTML = "<%= username %>";
+        document.getElementById("biography").innerHTML = "<%= bio %>";
+        
+    </script>
+    <%- include('../partials/script'); %>
+</body>
+</html>

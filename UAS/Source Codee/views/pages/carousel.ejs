@@ -1,0 +1,146 @@
+<html>
+    <%- include('../partials/profilehead'); %>
+    <title>Carousel Settings</title>
+<body>
+        <div class="wrapper">
+                <!--Sidebar-->
+                <%- include('../partials/sidebar'); %>
+                <!--Sidebar end-->
+
+                <!--Main Panel/Content-->
+                <div class="main-panel">
+                    <nav class="navbar navbar-default navbar-fixed" style="background-color: rgba(226, 30, 228, 0.24);">
+                        <div class="container-fluid" >
+                            <div class="navbar-header">
+                                <a class="navbar-brand" href="/profile/<%= username %>" style="color: cornsilk;">User Profile</a>
+                            </div>
+                            <div class="user-panel">
+                                <a href="/">Back</a>
+                            </div>
+                        </div>
+                    </nav>
+                    
+                    <!--Edit profile card-->
+
+                    <div class="content">
+                        <div class="container-fluid">
+                        <div class="row">
+                            
+                            <div class="col-md-8">
+                                <div class="card">
+                                    <div class="header">
+                                        <h4 class="title">Post Carousel</h4>
+                                    </div>
+                                    <div class="content">
+                                        <form action="/profile/<%= username %>/carousel/post" method="post" enctype="multipart/form-data">
+                                            <input type="file" id="image" name="image">
+                                                <br>
+                                          <br>
+                                            <div class="row">
+                                                <div class="col-md-9">
+                                                    <div class="form-group">
+                                                        <label>Title</label>
+                                                        <input type="hidden" class="form-control" placeholder="Insert title here..." name="title" id="title"> 
+                                                        <br><br>
+                                                        <div class="box">
+                                                            <select id="choicebox" name="choicebox">
+                                                            <% article.forEach(article => { %>
+                                                              <option><%= article.title %></option>
+                                                            <% }) %>
+                                                            </select>
+                                                          </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+        
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Summary</label>
+                                                        <input type="text" class="form-control" name="summary" id="summary" placeholder="Article summary here..">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <button class="btn btn-info btn-fill pull-right">Add Carousel</button> 
+                                            <button type="button" onclick="refreshData();" class="btn btn-info btn-fill pull-right" style="margin-right: 30px;">Confirm Data</button>    
+                                            <div class="clearfix"></div>
+
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h4 style="color: aliceblue;">Carousel Preview</h4>
+                    </div>
+                                    	<!-- Hero/Top/Carousel section -->
+                    <section class="hero-section overflow-hidden">
+                        <div class="hero-slider owl-carousel">
+                            <% carousel.forEach(carousel => { %>
+                            <div class="hero-item set-bg d-flex align-items-center justify-content-center text-center" data-setbg="data:image/<%= carousel.image.contentType %>;base64,<%= carousel.image.data.toString('base64') %>">
+                                <div class="container">
+                                    <h2><%= carousel.summary %></h2>
+                                    <p></p>
+                                    <a href="/article/<%= carousel.slug %>" class="site-btn">Read More  <img src="/images/double-arrow.png" alt="#"/></a>
+                                    <form action="/profile/<%= username %>/carousel/<%= carousel.slug %>/delete" method="post">
+                                    <button type="submit" class="btn btn-info btn-fill pull-right">Delete Carousel</button>
+                                    </form>    
+                                </div>
+                            </div>
+                        <% }) %>
+                        </div>
+                    </section>
+                    <!-- Hero section end-->
+                </div>
+            </div>
+            
+
+            <!-- Footer section -->
+            <footer class="footer-section">
+                <div class="container">
+                    <ul class="main-menu footer-menu">
+                        <li><a href="/"></a></li>
+
+                    </ul>
+                    <ul class="main-menu footer-menu">
+                        <li><a href="/"></a></li>
+
+                    </ul>
+                    <ul class="main-menu footer-menu">
+                        <li><a href="/"></a></li>
+
+                    </ul>
+                    <ul class="main-menu footer-menu">
+                        <li><a href="/"></a></li>
+
+                    </ul>
+                    <ul class="main-menu footer-menu">
+                        <li><a href="/"></a></li>
+
+                    </ul>
+                    <ul class="main-menu footer-menu">
+                        <li><a href="/"></a></li>
+
+                    </ul>
+                    <ul class="main-menu footer-menu">
+                        <li><a href="/"></a></li>
+
+                    </ul>
+                </div>
+            </footer>
+            <!-- Footer section end -->
+    </div>
+    <!--Wrapper End-->  
+    <!--====== Javascripts & Jquery ======-->
+    <script>
+            function refreshData(){
+            var selectedTitle = document.getElementById("choicebox").value;
+            var summaryContent = document.getElementById("summary").value;
+            document.getElementById("title").value = selectedTitle;
+            alert(selectedTitle + "\n\n" + summaryContent);
+        }
+    </script>
+    <%- include('../partials/script'); %>
+
+</body>
+</html>
