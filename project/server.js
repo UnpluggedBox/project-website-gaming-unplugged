@@ -122,7 +122,7 @@ app.listen(port, () => {
   console.log(`express server listening on port ${port}! `);
 });
 
-mongoose.connect('mongodb://Admin_Rubin:unpluggedgames@db-unplugged-gaming-shard-00-00.qs1gi.mongodb.net:27017,db-unplugged-gaming-shard-00-01.qs1gi.mongodb.net:27017,db-unplugged-gaming-shard-00-02.qs1gi.mongodb.net:27017/db-unplugged-gaming?ssl=true&replicaSet=atlas-kdlxo6-shard-0&authSource=admin&retryWrites=true&w=majority', {
+mongoose.connect('mongodb://AdminRubin:tes123@unplugged-shard-00-00.xguey.mongodb.net:27017,unplugged-shard-00-01.xguey.mongodb.net:27017,unplugged-shard-00-02.xguey.mongodb.net:27017/db-unplugged-gaming?ssl=true&replicaSet=atlas-43itgn-shard-0&authSource=admin&retryWrites=true&w=majority', {
   useUnifiedTopology: true,
   useNewUrlParser:true,
   useCreateIndex:true,
